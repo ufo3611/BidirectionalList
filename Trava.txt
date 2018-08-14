@@ -1,0 +1,4799 @@
+					Объектно-ориентированое программирование на языке С++
+
+Объектно-ориентированое программирование(ООП) - это подход, при котором программа состоит из объектов реального мира, которые
+являются экземплярами определенного класса или структуры. Классы и структуры - это синтаксические конструкции позволяющие описовать модели реального мира, описывая их набор характеристик и их поведение, классы и структуры состоят из полей или членов(members).
+
+Поля(Члены классов) делятся на 2 типа:
+1) Переменные члены класса или структуры, они описываются  характеристики объектов этого класса или структуры, например класс машина(car) обладает такими характеристиками: объем двигателя, мощность двигателя, расход топлива, и тд.
+
+2) Методы которые определяют поведение объектов и взаемодействие их с другими объектами нашего класса или других классов.
+Метод - это функция внутри класса, например в классе машина будут методы : старт(запустить двигатель), стоп(остановить двигатель) drive(ехать) turn_left(повернуть налево) turn_right(повернуть налево) fill(заправить)
+Фактически методы это то что машина "умеет" делать или то как она может себя вести
+___________________________________________________________________________________________________________________________
+						ОСНОВНЫЕ КОНЦЕПЦИИ ООП
+
+Все ООП строится на 3 основных концепциях:
+
+1) Инкапсуляция 
+2) Наследование
+3) Полиморфизм 
+___________________________________________________________________________________________________________________________
+							Инкапсуляция 
+Инкапсуляция - это сокрытие определенной части класса от внешнего мира. Под внешним миром подразумевается все что находится за пределами класа. Инкапсуляция - достигается при помощи модификаторов доступа и специальных Get/Set методов, get - просмотр set - изменение.
+Существует всего 3 модификатора доступа:
+1) private
+2) public
+3) protected  
+Поля с модификатором доступа private являются закрытыми, то есть к ним можно получить доступ только изнутри класса, нельзя получить доступ из любого другого места в программе
+Поля с модификатором доступа public являются открытыми, к которым можно получить доступ с любого места программы.
+Поля с модификатором доступа protected используется только при наследовании. 
+							
+							ВАЖНО
+Основное отличие между классом и структурой заключается в том, что у структуры все поля по-умолчанию являются открытыми(public), если не указано обратное, а у класса все поля по-умолчанию являются закрытыми(private)
+							ВАЖНО
+Переменные члены в классе обязательно должны быть закрытыми, то есть с модификатором доступа (private) или вообще без модификатора доступа
+___________________________________________________________________________________________________________________________
+							НАСЛЕДОВАНИЕ (Inheritance)
+Наследование - это способность одних классов наследовать свойства(характеристики) других классов.
+___________________________________________________________________________________________________________________________
+							ПОЛИМОРФИЗМ (Polymorphism)
+ПОЛИМОРФИЗМ - это способность объектов класса вести себя по-разному в зависимости от обстоятельств,  полиморфизм имеет несколько проявлений, одна из них это перегрузка оператора, перегрузка оператора похожа на перегрузку функций, но когда говорят о полиморфизме то имеют ввиду полиморфизм подтипов, который возможен только при наследовании 
+__________________________________________________________________________________________________________________________________________________
+							ИНКАПСУЛЯЦИЯ
+Инкапсуляция - это сокрытие определенной части class от внешнего мира, инкапсуляция достигается при помощи модификаторов доступа и при помощи get/set методов.
+Переменные члены class обязательно должны быть скрыты, то есть находится в private секции, если в class отсутствует какой либо модификатор доступа то все его поля будут закрытыми(private), но для того чтобы классом можно было пользоватся определенная его часть должна быть всетаки открыта, то есть находится в public секции, в publicсекции обычно находятся методы, но некоторые из них могут быть и в private секции, для доступа к переменным членам из вне, используют специальные get/set методы, их можно назвать элементами управления класса или же интерфейсной частью класса. у каждой переменной в классе должен быть свой get/set метод.
+Get методы используются для доступа к переменным на чтение(Get - взять/получить);
+Set методы используются для доступа к переменным на запись(Set - задать/установить);
+Например: в машине get-метод индикатор топлива, а крышка бензобака это set-метод 
+__________________________________________________________________________________________________________________________
+							Обязательные методы в классе
+ В каждом классе обязательно должны быть некоторые методы: 
+
+ 1) Конструктор;
+ 2) Деструктор;
+ 3) Конструктор копирования(Copy Constructor)
+ 4) Оператор присваевания (Copy Assignmend)
+ 5) Конструктор переноса (Move Constructor)
+ 6) Оператор присваивания переноса (Move Assignmend)
+
+Некоторые из этих методов являются не явными, по-скольку компелятор сам неявно добавляет их в класс, если программист их не написал. Рассмотрим эти методы более подробно.
+__________________________________________________________________________________________________________________________
+						КОНСТРУКТОР 
+
+Конструктор - это метод который выделяет память под объект и инициализирует поля класса при создании объекта, конструктор может быть вызван только не явно и только при создании объектов, и не может быть вызван после создания объекта, конструктор всегда называется так же как и класс и никогда не возвращает никаких значений, при этом даже не пишится ключевое слово void, конструктор может принимать а  может не принимать никаких параметров и поэтому конструктор как и другую любую функцию можно перегрузить, то есть в классе может быть сколько угодно конструкторов, но при создании объекта вызовится только один из них, в зависимости от токо как мы создаем объект, 
+__________________________________________________________________________________________________________________________										Конструкторы бывают:
+ 1) С параметрами
+ 2) Без параметров
+ 3) С по-умолчанию
+ 4) Конструктор копирования (Copy Constructor)
+ 5) Конструктор переноса (Move Constructor)
+__________________________________________________________________________________________________________________________									Конструктор по-умолчанию (Default Constructor)
+Это конструктор  который может быть вызван без параметров. Это может быть конструктор без параметров или конструктор с параметрами, каждый параметр которого имеет значение по-умолчанию, в классе может быть только один конструктор по-умолчаниюю Конструктор по-умолчанию является не явным (Implicit) по-скольку компелятор сам его добавляет, в том случае, если в классе нет ниодного конструктора
+__________________________________________________________________________________________________________________________________________________
+						Конструктор Копирования
+Конструктор Копирования нужен для того чтобы создаваемый объект, сделать таким же как другой уже существующий объект, особо важное значение конструктор копирования имеет при использовании динамической памяти, он выделяет новую область памяти и выполняет по-битовое(по-байтовое, по-элементовое) копирование содержимого из существующего объекта в создаваемый, конструктор копирования всегда принимает константную ссылку на существующий объект, 
+
+Point D = A	; //Copy Constructor
+						Оператор присваивания
+Если существующий объект нужно сделать таким же как и другой уже существующий объект, то мы не сможем вызвать конструктор копирования, по-скольку любой конструктор может быть вызван только неявно и только при создании объекта, для этих целей(чтобы существующий объект сделать таким же как уже существующий объект) в class должен быть оператор присваивания, overloaded operator, фактически оператор присванивания выполняет ту же роль что и конструктор копирования, но не для создаваемых объектов а для сущетсвующих, следовательно их реализация практически не отличается
+
+CopyConstructor и CopyAssignment могут быть неявными то есть, если программист их не написал, то компелятор сам добавит их в class, неявные  CopyConstructor и CopyAssignment приводят к ошибкам на этапе выполнения если в class используется динамическая память, то есть в таком случае их обязательно нужно реализовывать 
+
+D = A;//Copy Assignment
+
+0 - значение по-умолчанию int();
+Фактически это выражение вызывает конструктор по-умолчанию для int
+__________________________________________________________________________________________________________________________________________________								Перегрузка операторов
+Перегруженые операторы это обычные методы, в имени которых присутствует ключевое слово operator и знак существующего оператора c++, перегруженые операторы вызываются неявно, правило перегрузки операторов:
+
+1) Перегрузить можно только существующие операторы с++, нельзя создавать новые операторы.
+2) Не все существующие операторы можно перегрузить, не перегружаются
+? : - Тернарный оператор
+:: - оператор разрешения видимости
+.
+.*
+#
+##
+3) Перегруженые операторы сохраняют свой приоритет.
+4) Нельзя переопределить действие операторов для встроеных типов данных
+5) Операторы могут быть перегружены внутри class или за его пределами, если бинарный оператор перегружается внутри class, то его операнд слева всегда будет 'this', а операнд справа это принимаемый параметр, бинарные операторы перегружаемые внутри class всегда принимают только один параметр, если бинарный оператор перегружается в глобальном пространстве имен(за пределами class) то он будет принимать два параметра, первый это операнд слева, второй это операнд справа. 
+__________________________________________________________________________________________________________________________________________________
+Point operator + (const Point& other)
+	{
+		Point temp;
+		temp.x = this->x + other.x;
+		temp.y = this->y + other.y;
+		return temp;
+	}
+	Point operator - (const Point& other)
+	{
+		Point temp;
+		temp.x = this->x - other.x;
+		temp.y = this->y - other.y;
+		return temp;
+	}
+
+void main()
+{
+	Point A(2, 3), B(4, 5);
+	Point C = A + B;
+}
+__________________________________________________________________________________________________________________________________________________
+							Перегрузка Арифметический операторов
+							Перегрузка Инкремента и Дикремента
+
+Point& operator++() //Prefix
+	{
+		this->x++;
+		this->y++;
+		cout << "PrefixIncrement"<<"\t" << this << endl;
+		return *this;
+	}
+	Point operator++(int) //Postfix
+	{
+		Point temp = *this;
+		this->x++;
+		this->y++;
+		cout << "PostfixIncrement" << "\t" << this << endl;
+		return temp;
+	}
+
+__________________________________________________________________________________________________________________________________________________
+class Point
+{
+	double x;
+	double y;
+public:
+	// Get/Set 
+	double GetX() const
+	{
+		return x;
+	}
+	double GetY() const 
+	{
+		return y;
+	}
+	void SetX(double x)
+	{
+		this->x = x;
+	}
+	void SetY(double y)
+	{
+		this->y = y;
+	}
+	//Constructors:
+	Point(double x = 0, double y = 0)
+	{
+		this->x = x;
+		this->y = y;
+		//		cout << "Constructor:\t\t" << this << endl;
+	}
+	Point(const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "Copy Constructor:\t" << this << endl;
+	}
+
+
+	~Point()
+	{
+				cout << "Destructor\t" << this << endl;
+	}
+	Point& operator = (const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "CopyAssignment\t" << this << endl;
+		return *this;
+	}
+	Point operator + (const Point& other)
+	{
+		Point temp;
+		temp.x = this->x + other.x;
+		temp.y = this->y + other.y;
+		return temp;
+	}
+	Point operator - (const Point& other)
+	{
+		Point temp;
+		temp.x = this->x - other.x;
+		temp.y = this->y - other.y;
+		return temp;
+	}
+	Point& operator++() //Prefix
+	{
+		this->x++;
+		this->y++;
+		cout << "PrefixIncrement"<<"\t" << this << endl;
+		return *this;
+	}
+	Point operator++(int) //Postfix
+	{
+		Point temp = *this;
+		this->x++;
+		this->y++;
+		cout << "PostfixIncrement" << "\t" << this << endl;
+		return temp;
+	}
+	////////////////////////////////////////////////////////////////////
+	void Print()
+	{
+		cout << this->x << "\t" << this->y << endl;
+	}
+	friend double Distance_function(const Point& A,const  Point& B);
+};
+double Distance_function(const Point& A, const Point& B)
+{
+	//return  sqrt(pow((B.GetX() - A.GetX()), 2) + pow((A.GetY() - B.GetY()), 2));
+	return  sqrt(pow((B.x - A.x), 2) + pow(A.y - B.y, 2));
+}
+void main()
+{
+/*	char Arr[n][n];
+	Point A(1, 5);
+	Point B(-3, -4); 
+	Init(Arr, n, A.GetX(), A.GetY(), B.GetX(), B.GetY());
+	Print(Arr, n);
+	cout << "a (" << A.GetX() << ";" << A.GetY() << ")" << endl;
+	cout << "b (" << B.GetX() << ";" << B.GetY() << ")" << endl; 
+	double distance = Distance_function(A, B);
+	cout << distance << endl;  */
+/*	Distance C(A.GetX(), A.GetY(), B.GetX(), B.GetY());
+	C.Print();
+	*/
+/*	Point A(2, 3), B(4, 5);
+	Point C = A + B;
+	C.Print(); */
+
+	Point A(2, 3);
+	++A;
+	A.Print();
+	Point B = A++;
+	B.Print();
+}
+
+______________________________________________________________________________________________________________
+
+______________________________________________________________________________________________________________
+							07.06.18
+#include <iostream>
+using namespace std;
+
+class Fraction
+{
+	int Integer;
+	int Numerator;
+	int Denominator;
+public:
+	int GetInteger() const
+	{
+		return Integer;
+	}
+	int GetNumerator() const
+	{
+		return Numerator;
+	}
+	int GetDenominator() const
+	{
+		return Denominator;
+	}
+	void SetInteger(int Integer)
+	{
+		this->Integer = Integer;
+	}
+	void SetNumerator(int Numerator)
+	{
+		this->Numerator = Numerator;
+	}
+	void SetDenominator(int Denominator)
+	{
+		this->Denominator = Denominator;
+	}
+	//Constructors:
+	Fraction()
+	{
+		this->Integer = 0;
+		this->Numerator = 0;
+		this->Denominator = 1;
+		cout << "DefConstructor:\t\t" << this << endl;
+	}
+	Fraction(int Integer)
+	{
+		this->Integer = Integer;
+		this->Numerator = 0;
+		this->Denominator = 1;
+		cout << "SingleArgument Constructor:\t\t" << this << endl;
+	}
+	Fraction(int Numerator, int Denominator)
+	{
+		this->Integer = 0;
+		this->Numerator = Numerator;
+		this->Denominator = Denominator;
+		cout << "Constructor:\t\t" << this << endl;
+	}
+	Fraction(int Integer, int Numerator, int Denominator)
+	{
+		this->Integer = Integer;
+		this->Numerator = Numerator;
+		this->Denominator = Denominator;
+		cout << "Constructor:\t\t" << this << endl;
+	}
+	Fraction(const Fraction& other)
+	{
+		this->Integer = other.Integer;
+		this->Numerator = other.Numerator;
+		this->Denominator = other.Denominator;
+		//	cout << "CopyConstructor\t" << this << endl;
+	}
+	~Fraction()
+	{
+		//	cout << "Destructor:\t\t" << this << endl;
+	}
+	//////////////////////Operator Overloading////////////////////////////////////
+	Fraction& operator = (const Fraction& other)
+	{
+		this->Integer = other.Integer;
+		this->Numerator = other.Numerator;
+		this->Denominator = other.Denominator;
+		//	cout << "CopyAssignment\t" << this << endl;
+		return *this;
+	}
+	Fraction operator + (const Fraction& other)
+	{
+		Fraction temp;
+		temp.Integer = this->Integer + other.Integer;
+		temp.Numerator = this->Numerator*other.Denominator + other.Numerator*this->Denominator;
+		temp.Denominator = this->Denominator * other.Denominator;
+		return temp;
+	}
+	Fraction operator * (const Fraction& other)
+	{
+		Fraction temp;
+		Fraction buffer_other(other.Integer, other.Numerator, other.Denominator);
+		Fraction buffer_this(this->Integer, this->Numerator, this->Denominator);
+		if (other.Integer != 0)
+		{
+			buffer_other.Numerator += buffer_other.Integer * buffer_other.Denominator;
+			buffer_other.Integer = 0;
+		}
+		if (this->Integer != 0)
+		{
+			buffer_this.Numerator += buffer_this.Integer * buffer_this.Denominator;
+			buffer_this.Integer = 0;
+		}
+		temp.Integer = buffer_this.Integer * buffer_other.Integer;
+		temp.Numerator = buffer_this.Numerator * buffer_other.Numerator;
+		temp.Denominator = buffer_this.Denominator * buffer_other.Denominator;
+		return temp;
+	}
+	Fraction operator / (const Fraction& other)
+	{
+		Fraction temp;
+		Fraction buffer_other(other.Integer, other.Numerator, other.Denominator);
+		Fraction buffer_this(this->Integer, this->Numerator, this->Denominator);
+		if (other.Integer != 0)
+		{
+			buffer_other.Numerator += buffer_other.Integer * buffer_other.Denominator;
+			buffer_other.Integer = 0;
+		}
+		if (this->Integer != 0)
+		{
+			buffer_this.Numerator += buffer_this.Integer * buffer_this.Denominator;
+			buffer_this.Integer = 0;
+		}
+		temp.Numerator = buffer_this.Numerator * buffer_other.Denominator;
+		temp.Denominator = buffer_this.Denominator * buffer_other.Numerator;
+		return temp;
+	}
+	Fraction operator - (const Fraction& other)
+	{
+		Fraction temp;
+		temp.Integer = this->Integer - other.Integer;
+		temp.Numerator = this->Numerator*other.Denominator - other.Numerator*this->Denominator;
+		temp.Denominator = this->Denominator * other.Denominator;
+		return temp;
+	}
+	Fraction& operator++() //Prefix
+	{
+		this->Integer++;
+		this->Numerator++;
+		this->Denominator++;
+		cout << "PrefixIncrement" << "\t" << this << endl;
+		return *this;
+	}
+	Fraction operator++(int) //Postfix
+	{
+		Fraction temp = *this;
+		this->Integer++;
+		this->Numerator++;
+		this->Denominator++;
+		cout << "PostfixIncrement" << "\t" << this << endl;
+		return temp;
+	}
+	Fraction& operator--() //Prefix
+	{
+		this->Integer--;
+		this->Numerator--;
+		this->Denominator--;
+		cout << "PrefixDicrement" << "\t" << this << endl;
+		return *this;
+	}
+	Fraction operator--(int) //Postfix
+	{
+		Fraction temp = *this;
+		this->Integer--;
+		this->Numerator--;
+		this->Denominator--;
+		cout << "PostfixDicrement" << "\t" << this << endl;
+		return temp;
+	}
+	void Print()
+	{
+		if (Integer == 0 && Numerator == 0)
+		{
+			cout << 0 << endl;
+		}
+		else if (this->Integer == 0)
+		{
+			cout << Numerator << "/" << Denominator << endl;
+		}
+		else
+		{
+			cout << Integer;
+			if (Numerator != 0)
+			{
+				cout << "(" << Numerator << "/" << Denominator << ")" << endl;
+			}
+		}
+	}
+	void ToProper() //Перевод в правильную дробь
+	{
+		Integer += Numerator / Denominator;
+		Numerator = Numerator % Denominator;
+	}
+	void ToImproper() //Перевод в неправильную дробь
+	{
+		Numerator += Integer * Denominator;
+		Integer = 0;
+	}
+	void Reduse()
+	{
+		for (int i = 1; i < 100; i++)
+		{
+			if (Numerator % i == 0 && Denominator %i == 0)
+			{
+				Numerator /= i;
+				Denominator /= i;
+				i = 1;
+				continue;
+			}
+		}
+	}
+
+};
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	Fraction C(2, 16, 3);
+	Fraction F(2, 2, 2);
+	Fraction D = C / F;
+	D.Reduse();
+	D.ToProper();
+	D.Print();
+	Fraction A(2, 3);
+	Fraction B = ++A;
+	B.Print();
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+								11.06.18
+							Преобразование типов
+При использовании class`ов преобразование типов возможно одним из трёх способов:
+
+
+1. Single argument constructor; Выполняет преобразование из определенного типа в наш. (Из какого-то типа в наш)
+
+2. Assignment operator (=); Так же выполняет преобразование из определенного типа в наш, но не работает без конструктора с одним параметром. (Из какого-то типа в наш)
+
+3. Type-cast operator; Оператор преобразования типа; их может быть несколько так же как и конструкторов, они используются для преобразования объектов нашего класса в какой-то определенный тип данных, например int,float или объекты другого класса если это имеет смысл (из нашего в другой)
+							
+							Операторы преобразования типа
+Это обычные методы, в имени которых есть ключевое слово "operator" и имя желаемого типа данных. В операторах преобразования не пишут тип возвращаемого значения, по-скольку он является частью имени. Операторы преобразования  так же не принимают никаких параметров, операторы преобразования имеют следующий синтаксис:
+
+	operator Typename ()
+{
+Convertion code;
+}
+
+  A foo;
+  B bar = foo;    // calls constructor
+  bar = foo;      // calls assignment
+  foo = bar;      // calls type-cast operator
+
+	operator int()
+	{
+		this->ToProper();
+		return this->Integer;
+	}
+	operator double()
+	{
+		double Decemal = this->Integer;
+		Decemal += (double)this->Numerator / this->Denominator;
+		return Decemal;
+	}
+
+Неявные преобразования объектов нашего класса в другой тип данных можно запретить, написав перед соответствующим оператором ключевое слово explicit(явный), explicit иногда пишут перед конструктором с одним параметром, для того чтобы запретить неявное преобразование из других типов в наш, но тогда single argument constructor можно будет вызвать только при помощи круглых или фигурных скобок и нельзя будет вызвать оператором присваивания 
+
+explicit operator double()
+	{
+		double Decemal = this->Integer;
+		Decemal += (double)this->Numerator / this->Denominator;
+		return Decemal;
+	}
+// Способы вызова и написания конструкторов.
+// глобальная перегрузка операторов
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+								12.06.18
+						Перегрузка операторов перенаправления в поток 
+
+	friend ostream& operator << (ostream& os, const Fraction& obj)
+	{
+		if (obj.Integer == 0) os << obj.Numerator << '/' << obj.Denominator;
+		else os << obj.Integer << '(' << obj.Numerator << '/' << obj.Denominator << ')';
+		return os;
+	}
+	friend istream& operator >> (istream& is, Fraction& obj)
+	{
+		is >> obj.Integer;
+		is >> obj.Numerator;
+		is >> obj.Denominator;
+		return is;
+	}
+// Перегрузка cout и cin для пользовательских типов данных;
+// Перегрузить глобальные операторы + - * /, и сравнения;
+_____________________________________________________________________________________________________________________________
+								14.06.18
+						Способы вызова и написания конструкторов 
+friend Fraction operator+(int left, Fraction right)
+	{
+		right.ToProper();
+		Fraction Temp(left + right.Integer, right.Numerator, right.Denominator);
+		return Temp;
+	}
+	Fraction& operator ()()
+	{
+		this->Integer = 0;
+		this->Numerator = 0;
+		this->Denominator = 1;
+		return *this;
+	}
+	Fraction& operator ()(int Integer)
+	{
+		this->Integer = Integer;
+		this->Numerator = 0;
+		this->Denominator = 1;
+		return *this;
+	}
+	Fraction& operator ()(int Numerator, int Denominator)
+	{
+		this->Integer = 0;
+		this->Numerator = Numerator;
+		this->Denominator = Denominator;
+		return *this;
+	}
+	Fraction& operator ()(int Integer, int Numerator, int Denominator)
+	{
+		this->Integer = Integer;
+		this->Numerator = Numerator;
+		this->Denominator = Denominator;
+		return *this;
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+								Строки
+В языке С, строка представляет собой массив элементов char, последним элементом которого будет ascii символ с кодом 0('\0'), поэтому строки в языке С, ещё называют Null terminated lines(строки заканчивающиеся на 0);
+
+#include <iostream>
+#include <windows.h>
+using namespace std;
+
+void InputLine(char Str[], const int n)
+{
+	SetConsoleCP(1251);
+	cin.getline(Str,n);
+	SetConsoleCP(866);
+}
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	/*char Str1[] = { 'H','e','l','l','o','\0'};
+	cout << Str1 << endl;
+	char Str2[] = "Hello";
+	cout << Str2 << endl;
+	cout << sizeof(Str2) << endl;*/
+	const int n = 20;
+	char Str[n];
+	char Msg[] = "Введите строку: ";
+	cout << Msg;
+	InputLine(Str, n);
+	cout << Str << endl;
+}
+// функция StrLen, которая измеряет длинну строки;
+// ToUpper() - переводит строку в верхний регистр;
+// ToLower() - переводит строку в нижний регистр;
+//Capitalize() - сделает первую букву в каждом слове большой;
+//Shrink() - уберает лишние пробелы;
+//StrCpy() - копирует одну строку в другую;
+//StrCat() - конкатенация строк;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+							18.06.18
+#include <iostream>
+#include <windows.h>
+using namespace std;
+
+class String
+{
+	int size;
+	char* str;
+public:
+	String(int size = 80)
+	{
+		this->size = size;
+		this->str = new char[size] {};
+		cout << "DefaultConstructor\t" << this << endl;
+	}
+	String(char str[])
+	{
+		this->size = strlen(str)+1;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+		{
+			this->str[i] = str[i];
+		}
+		cout << "Constructor\t" << this << endl;
+	}
+	String(const String& other)
+	{
+		this->size = other.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+		{
+			this->str[i] = other.str[i];
+		}
+		cout << "CopyConstructor\t" << this << endl;
+	}
+	String& operator = (const String& other)
+	{
+		delete[]this->str;
+		this->size = other.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+		{
+			this->str[i] = other.str[i];
+		}
+		cout << "CopyAssignment\t" << this << endl;
+		return *this;
+	}
+	~String()
+	{
+		delete[] this->str;
+		cout << "Destructor\t" << this << endl;
+	}
+	void Print()
+	{
+		cout << "size: " << size << endl;
+		cout << str << endl;
+	}
+	/////////////////////////// Auxiliary methods//////////////////////////////
+	int StrLen(char Str[])
+	{
+		int i;
+		for (i = 0; Str[i]; i++);
+		return i;
+	}
+};
+void InputLine(char Str[], const int n)
+{
+	SetConsoleCP(1251);
+	cin.getline(Str, n);
+	SetConsoleCP(866);
+}
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	String Str1;
+	String Str2 = 20;
+	String Str3 = "Hello";
+	String Str4("World");
+	String Str5 = Str3;
+	String Str("privet");
+	Str2 = Str1;
+	Str2.Print();
+}
+
+//operator+, который выполняет конкатынацию строк
+//дилигирование конструкторов
+// += 
+//strcpy(Dst,Src); // strcpy - String copy
+		//Dst(Destation - Назначение) - строка получатель
+		//Src(Source - Источник) - строка источник
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#include <iostream>
+#include <windows.h>
+using namespace std;
+
+class String
+{
+	int size;
+	char* str;
+public:
+	String(int size = 80):size(size), str(new char[size]{})
+	{
+		//this->size = size;
+		//this->str = new char[size] {};
+		cout << "DefaultConstructor\t" << this << endl;
+	}
+	String(char str[]):String(strlen(str)+1)
+		//:size(strlen(str)+1), str(new char[size]{})
+	{
+		/*this->size = strlen(str) + 1;
+		this->str = new char[size] {};*/
+		for (int i = 0; i < size; i++) this->str[i] = str[i];
+		cout << "Constructor\t" << this << endl;
+	}
+	String(const String& other):String(other.size)
+	{
+		/*this->size = other.size;
+		this->str = new char[size] {};*/
+		//Теперь здесь не нужно выделять память,по-скольку эту задачу
+		//мы делегировали в констурктор по-умолчанию
+		//И конструктор копирования теперь будет выполнять только
+		//по-битовое копирование 
+	for (int i = 0; i < size; i++) this->str[i] = other.str[i];
+	cout << "CopyConstructor\t" << this << endl;
+	}
+	String& operator = (const String& other)
+	{
+		delete[]this->str;
+		this->size = other.size;
+		this->str = new char[size] {};
+		/*for (int i = 0; i < size; i++)
+		{
+			this->str[i] = other.str[i];
+		}*/
+		//strcpy(Dst,Src); // strcpy - String copy
+		//Dst(Destation - Назначение) - строка получатель
+		//Src(Source - Источник) - строка источник
+		strcpy(this->str, other.str);
+		cout << "CopyAssignment\t" << this << endl;
+		return *this;
+	}
+	String operator + (const String& other)
+	{
+		String temp = this->size + other.size - 1;;
+		for (int i = 0; i < this->size - 1; i++) temp.str[i] = this->str[i];
+		for (int i = this->size - 1, j = 0; i < this->size + other.size; i++, j++)temp.str[i] = other.str[j];
+		return temp;
+	}
+	String& operator += (const String & other)
+	{
+		*this = *this + other;
+		return *this;
+	}
+	String(String&& other)
+	{
+		this->size = other.size;
+		this->str = other.str;
+		other.str = nullptr;
+		cout << "MoveConstructor" << this << endl;
+	}
+	~String()
+	{
+		delete[] this->str;
+	//	cout << "Destructor\t" << this << endl;
+	}
+	void Print()
+	{
+		cout << "size:\t" << size << endl;
+		cout << "str:\t" << str << endl;
+	}
+	/////////////////////////// Auxiliary methods//////////////////////////////
+	int StrLen(char Str[])
+	{
+		int i;
+		for (i = 0; Str[i]; i++);
+		return i;
+	}
+	friend ostream& operator << (ostream& os, const String& obj)
+	{
+		os << "size:\t" << obj.size << endl;
+		os << "str:\t" << obj.str;
+		return os;
+	}
+};
+void InputLine(char Str[], const int n)
+{
+	SetConsoleCP(1251);
+	cin.getline(Str, n);
+	SetConsoleCP(866);
+}
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	String Str1("Hello");
+	cout << Str1 << endl;
+	String Str2("World");
+	cout <<  Str2 << endl;
+	String Str3 = Str1 + Str2;
+	cout <<  Str3 << endl;
+	/*Str1 += Str2;
+	cout << "Str1+=Str2: " << Str1 << endl;
+	cout << "Str3=Str1+Str2: " << Str3 << endl;*/
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+							21.06.18
+						Конструктор переноса и оператор присваивания переноса
+							MoveConstructor and assignment
+Конструктор переноса (MoveConstructor) - вызывается в том случае когда создаваемый объект нужно проинициализировать
+возвращаемым значением какой либо функции или метода. Когда из функции возвращается значение какой либо локальной
+переменной (объекта) это значение копируется на место вызова данной функции, то есть создается копия возвращаемого
+значения, на копирование как известно тратится память и время, после копирования возвращаемый локальный объект
+удаляется из памяти по завершении работы функции, так почему бы не перенести его на место вызова не тратя время
+и память на копирование с последующими удалениями, как раз для этих целей и создали конструктор переноса,
+он переносит возвращаемый объект на место вызова и предотвращает его последующее удаление деструктором, конструктор
+переноса позволяет съекономить память и время выполнения, он особенно актуален если в классе используется динамическая
+память и абсолютно не представляет никакого смысла без её использования, переменные примитивного типа и так быстро
+скопируются и для этого не нужна выделять большие объемы памяти. 
+
+	String(String&& other)
+	{
+		this->size = other.size;
+		this->str = other.str;
+		other.str = nullptr;
+		cout << "MoveConstructor\t" << this << endl;
+	}
+	String& operator=(String&& other) 
+	{
+		delete[]this->str;
+		this->size = other.size;
+		this->str = other.str;
+		other.str = nullptr;
+		cout << "MoveAssignment\t" << this << endl;
+		return *this;
+	}
+
+Конструктор это метод который создает объект, его нельзя вызвать после создания объекта, по-скольку последний
+уже создан и если нужно уже созданный объект проинициализировать возвращаемым значением, тогда нужен переносящий оператор присваивания
+Переносящий оператор присваивания делает тоже самое что и конструктор переноса но уже для существующих объектов
+
+#include <iostream>
+#include <windows.h>
+using namespace std;
+
+#define delimiter "-----------------------------------"
+
+class String
+{
+	int size;
+	char* str;
+public:
+	int GetSize()
+	{
+		return this->size;
+	}
+
+	////////////////////////////////////////// Constructors /////////////////////////////////
+	String(int size = 80) :size(size), str(new char[size] {})
+	{
+		cout << "DefaultConstructor\t" << this << endl;
+	}
+	String(char str[]) :String(strlen(str) + 1)
+	{
+		/*this->size = strlen(str) + 1;
+		this->str = new char[size] {};*/
+		strcpy_s(this->str, this->size, str);
+		cout << "Constructor\t\t" << this << endl;
+	}
+	String(const String& other) :String(other.str)
+	{
+		/*this->size = other.size;
+		this->str = new char[size] {};*/
+		//Теперь здесь не нужно выделять память,по-скольку эту задачу
+		//мы делегировали в констурктор по-умолчанию
+		//И конструктор копирования теперь будет выполнять только
+		//по-битовое копирование 
+		//	strcpy(this->str, other.str);
+		cout << "CopyConstructor\t" << this << endl;
+	}
+	String& operator = (const String& other)
+	{
+		delete[]this->str;
+		this->size = other.size;
+		this->str = new char[size] {};
+		//strcpy(Dst,Src); // strcpy - String copy
+		//Dst(Destation - Назначение) - строка получатель
+		//Src(Source - Источник) - строка источник
+		strcpy_s(this->str, this->size, other.str);
+		cout << "CopyAssignment\t" << this << endl;
+		return *this;
+	}
+	String operator + (const String& other)
+	{
+		String temp = this->size + other.size - 1;
+		for (int i = 0; i < this->size - 1; i++) temp.str[i] = this->str[i];
+		for (int i = 0; i < other.size; i++) temp.str[i + this->size - 1] = other.str[i];
+		return temp;
+	}
+	String& operator += (const String & other)
+	{
+		*this = *this + other;
+		return *this;
+	}
+	String(String&& other)
+	{
+		this->size = other.size;
+		this->str = other.str;
+		other.str = nullptr;
+		cout << "MoveConstructor\t\t" << this << endl;
+	}
+	String& operator=(String&& other)
+	{
+		delete[]this->str;
+		this->size = other.size;
+		this->str = other.str;
+		other.str = nullptr;
+		cout << "MoveAssignment\t\t" << this << endl;
+		return *this;
+	}
+	String& operator ()(char str[])
+	{
+		this->size = strlen(str) + 1;
+		this->str = new char[size] {};
+		strcpy_s(this->str, this->size, str);
+		return *this;
+	}
+	~String()
+	{
+		delete[] this->str;
+		cout << "Destructor\t\t" << this << endl;
+	}
+	char& operator[](int Index)
+	{
+		return this->str[Index];
+	}
+
+	const char& operator[](int Index) const
+	{
+		return this->str[Index];
+	}
+	/////////////////////////// Auxiliary methods//////////////////////////////
+	void Print()
+	{
+		cout << "size:\t" << size << endl;
+		cout << "str:\t" << str << endl;
+	}
+	int StrLen(char Str[])
+	{
+		int i;
+		for (i = 0; Str[i]; i++);
+		return i;
+	}
+	friend ostream& operator << (ostream& os, const String& obj)
+	{
+		os << obj.str;
+		return os;
+	}
+	friend istream& operator >> (istream& is, String& obj)
+	{
+		SetConsoleCP(1251);
+		is.getline(obj.str, obj.size);
+		SetConsoleCP(866);
+		return is;
+	}
+};
+void InputLine(char Str[], const int n)
+{
+	SetConsoleCP(1251);
+	cin.getline(Str, n);
+	SetConsoleCP(866);
+}
+void main()
+{
+
+	setlocale(LC_ALL, "Russian");
+	/*String Str1 = "Hello";
+	cout << Str1 << endl;
+	cout << delimiter << endl;
+	String Str2 = "World";
+	cout << Str2 << endl;
+	cout << delimiter << endl;
+	String Str3 = Str1 + " " + Str2;
+	cout << Str3 << endl;
+	cout << delimiter << endl;*/
+
+	//String Str1("Hello");
+	//cout << Str1 << endl;
+	//String Str2("World");
+	//cout << Str2 << endl;
+	//String Str3 = Str1 + Str2;
+	//cout << Str3 << endl;
+
+
+	String Str1 = "Hello";
+
+	Str1[3] = '1';
+	for (int i = 0; i < Str1.GetSize(); i++)
+	{
+		cout << Str1[i] << "\t";
+	}
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+								27.06.18	
+						ДИНАМИЧЕСКИЕ СТРУКТУРЫ ДАННЫХ
+							Forward list
+Простейшей структурой данных является массив.
+
+Массив - набор переменных одного типа, идущих друг за другом в памяти, преймуществом массивов является быстрый доступ к элементам, который осуществляется за константное время , не зависимое от количества элементов в массиве, так происходит потому, что доступ к элементу сводится к операции сложения, то есть к адресу массива нужно прибавить номер элемента мы получаем к ним доступ, недостатком массива является сложность добавления и удаления элементов. Недостатки массивов устроняют списки, списки бывают односвязные и двухсвязные, односвязный список это набор элементов расположеных в произвольных областях памяти, каждый элемент которого содержит адрес следующего элемента, преймуществом списков является простота удаления/прибавления элементов которая не влияет на производительность, по-скольку для добавления элементов в список не нужно переопределять память в отличии от массивов, но недостатком списка является медленный доступ к элементам, время доступа к элементу зависит от количества элементов в списке.
+
+Односвязный список реализуется при помощи двух классов, класс Element описывает структуру элемента, он состоит из каких-то полезных данных и содержит адрес следующего элемента (Data/pNext), класс список содержит лиш адрес
+нулевого элемента списка и полностью обеспечивает функциональностью добавления, удаления элементов, доступа к элементам и так далее
+
+
+#include <iostream>
+using namespace std;
+
+class Element
+{
+	int Data;   //Значение элемента
+	Element* pNext; //Адрес следующего элемента
+public:
+	
+	Element(int Data, Element* pNext = nullptr):Data(Data),pNext(pNext)
+	{
+		cout << "EConstructor:\t" << this << endl;
+	}
+	~Element()
+	{
+
+		cout << "EDestructor:\t" << this << endl;
+	}
+	friend class List;
+};
+
+class List
+{
+	Element* Head;  //Адрес нулевого элемента
+public:
+	List()
+	{
+		Head = nullptr;
+		cout << "LConstructor:\t" << this << endl;
+	}
+	~List()
+	{
+		cout << "LDestructor:\t" << this << endl;
+	}
+
+	void push_front(int Data)
+	{
+		Element* New = new Element(Data);
+		New->pNext = Head;
+		Head = New;
+
+		//Head = new Element(Data, Head);
+	}
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element * Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element(Data);
+	}
+	void Insert(int Data, int Index)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element * Temp = Head;
+
+
+		//Temp->pNext = new Element(Data);
+	}
+	void Print()
+	{
+		Element* Temp = Head;  //Temp это итератор, итератор это указатель при помощи которого
+		// получают доступ к элементам структуры данных
+		cout << "Адрес списка: " << this->Head << endl;
+		while (Temp != nullptr)
+		{
+			cout << Temp << "\t" << Temp->Data << "\t" << Temp->pNext << endl;
+			Temp = Temp->pNext;
+		}
+	}
+};
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n; // количество элементов списка
+	cout << "Введите количество элементов: "; cin >> n;
+	List chain;   //Создается пустой список
+
+	for (int i = 0; i < n; i++)
+	{
+		chain.push_back(rand() % 100);
+	}
+	chain.Print();
+	chain.Insert(5, 2);
+	chain.Print();
+}
+_______________________________________________________________________________________________________
+							02.07.18
+#include <iostream>
+using namespace std;
+
+
+#define delimiter "\n--------------------------------------------------------\n"
+
+class Element
+{
+	int Data;   //Значение элемента
+	Element* pNext; //Адрес следующего элемента
+//	static int Count; //Количество элементов. 
+public:
+
+	Element(int Data, Element* pNext = nullptr) :Data(Data), pNext(pNext)
+	{
+	//	Count++;
+		cout << "EConstructor:\t" << this << endl;
+	}
+	~Element()
+	{
+	//	Count--;
+		cout << "EDestructor:\t" << this << endl;
+	}
+	friend class List;
+};
+
+//int Element::Count = 0;
+
+class List
+{
+	Element* Head;  //Адрес нулевого элемента
+	int Size; // Количество элементов списка.
+public:
+	List()
+	{
+		Head = nullptr;
+		Size = 0;
+		cout << "LConstructor:\t" << this << endl;
+	}
+	~List()
+	{
+		cout << "LDestructor:\t" << this << endl;
+	}
+	/////////////////////////////////////////// Добавление элементов ///////////////////////
+	void push_front(int Data)
+	{
+		Element* New = new Element(Data);
+		New->pNext = Head;
+		Head = New;
+		Size++;
+		//Head = new Element(Data, Head);
+	}
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element * Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element(Data);
+		Size++;
+	}
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Вы вышли за пределы списка!" << endl;
+			return;
+		}
+		Element* Temp = Head; // Создаем итератор.
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext; //Добераемся до нужного элемента 
+	//	Element* New = new Element(Data); // создаем элемент, в который сохраним добавляемое значение в список
+	//	New->pNext = Temp->pNext; //в адрес нашей ячейки записывается адрес следующей
+	//	Temp->pNext = New; // в адрес прошлой записывается адрес нашей
+		Temp->pNext = new Element(Data, Temp->pNext);
+		Size++;
+	}
+	///////////////////////////////// Erasing elements (Удаление элементов)///////////////////////
+	void pop_front()
+	{
+		Element* Buffer = Head;
+		Head = Head->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	void pop_back()
+	{
+
+	}
+
+	void erase(int Index)
+	{
+
+	}
+
+	///////////////////////////////// Auxiliary methods ////////////////////////////////////////////////////////
+	void Print()
+	{
+		Element* Temp = Head;  //Temp это итератор, итератор это указатель при помощи которого
+							   // получают доступ к элементам структуры данных
+		cout << "Адрес списка: " << this->Head << endl;
+		while (Temp != nullptr)
+		{
+			cout << Temp << "\t" << Temp->Data << "\t" << Temp->pNext << endl;
+			Temp = Temp->pNext;
+		}
+		cout << "Количество элементов списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+};
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n; // количество элементов списка
+	cout << "Введите количество элементов: "; cin >> n;
+	List chain;   //Создается пустой список
+
+	for (int i = 0; i < n; i++)
+	{
+		chain.push_back(rand() % 100);
+	}
+	chain.Print();
+	//int index, data;
+	//cout << "Введите Data:"; cin >> data;
+	//cout << "Введите Index:"; cin >> index;
+	//chain.Insert(data, index);
+	//chain.Print();
+	List chain2;
+	for (int i = 0; i < n; i++)
+	{
+		chain2 .push_back(rand() % 100);
+	}
+	chain2.Print();
+}
+_____________________________________________________________________________________________________________
+								03.07.18
+#include <iostream>
+using namespace std;
+
+#define tab "\t"
+#define delimiter "\n-----------------------------------\n"
+
+class Element
+{
+	int Data;
+	Element* pNext;
+public:
+	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
+	{
+		// Добавление элемента в список
+		cout << "EConstructor: " << this << endl;
+	}
+	~Element()
+	{
+		// Удаленеи элемента из списка
+		cout << "EDestructor: " << this << endl;
+	}
+	friend class List;
+};
+class List
+{
+	Element* Head;
+	int Size;
+public:
+	int getSize()
+	{
+		return this->Size;
+	}
+	//////////////////////////////////////////////////// Constructors ////////////////////////////////////////
+	List()   //Инициализация пустого списка
+	{
+		Head = nullptr;
+		Size = 0;
+		cout << "LConstructor: " << this << endl;
+	}
+
+	List(int n): List()
+	{
+			for (int i = 0; i < n; i++)
+			{
+				push_front(0);
+			}
+	}
+
+	~List()
+	{
+		while (Head) pop_front();
+		cout << "LConstructor: " << this << endl;
+	}
+	//////////////////////////////////////////////////// Operator Overloading ////////////////////////////////////////////////////////
+
+	int& operator[](int Index)
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+
+	//////////////////////////////////////////////////// Добавление элементов в список ////////////////////////////////////////
+	void push_front(int Data)
+	{
+		Element* New = new Element(Data);
+		New->pNext = Head;
+		Head = New;
+		Size++;
+	}
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element* Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element(Data);
+		Size++;
+	}
+
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* New = new Element(Data);
+		New->pNext = Temp->pNext;
+		Temp->pNext = New;
+		Size++;
+		//Temp->pNext = new Element(Data, Temp->pNext);
+	}
+
+
+	////////////////////////////////////////////////// Удаление элементов из списка ////////////////////////////////////////////
+
+	void pop_front()
+	{
+		Element* Buffer = Head;
+		Head = Head->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	void pop_back()
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < Size - 2; i++) Temp = Temp->pNext;
+		/*Element* Buffer = Temp->pNext;
+		Temp->pNext = nullptr;
+		delete Buffer;*/
+		delete Temp->pNext;
+		Temp->pNext = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* Buffer = Temp->pNext;
+		Temp->pNext = Temp->pNext->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	////////////////////////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+	void Print()
+	{
+		Element* Temp = Head;
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		while (Temp != nullptr)
+		{
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+			Temp = Temp->pNext;
+		}
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+};
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n; // размер списка
+	int data, index;
+	cout << "Введите размер списка: "; cin >> n;
+	List chain(n); //инициализация пустого списка
+
+
+	/*for (int i = 0; i < n; i++)
+	{
+		chain.push_front(rand() % 100);
+	}
+	chain.Print();*/
+
+	/*int a = chain[3];
+	cout << a << endl;*/
+	for (int i = 0; i < chain.getSize(); i++)
+	{
+		chain[i] = rand() % 100;
+		cout << chain[i] << tab;
+	}
+	cout << endl;
+	//cout << "Введите data: "; cin >> data;
+	//cout << "Введите index: "; cin >> index;
+	//chain.Insert(data, index);
+//	chain.Erase(index);
+
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+						Конспект 03.07.18
+#include <iostream>
+using namespace std;
+
+#define tab "\t"
+#define delimiter "\n-----------------------------------\n" 
+
+class Element
+{
+	int Data;
+	Element* pNext;
+public:
+	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
+	{
+		// Добавление элемента в список
+		cout << "EConstructor: " << this << endl;
+	}
+	~Element()
+	{
+		// Удаленеи элемента из списка
+		cout << "EDestructor: " << this << endl;
+	}
+	friend class List;
+};
+class List
+{
+	Element* Head;
+	int Size;
+public:
+	int getSize()
+	{
+		return this->Size;
+	}
+	//////////////////////////////////////////////////// Constructors ////////////////////////////////////////
+	List()   //Инициализация пустого списка
+	{
+		Head = nullptr;
+		Size = 0;
+		cout << "LConstructor: " << this << endl;
+	}
+
+	List(int n) : List()
+	{
+		for (int i = 0; i < n; i++) push_front(0);
+	}
+
+	~List()
+	{
+		Clear();
+		cout << "LConstructor: " << this << endl;
+	}
+	//////////////////////////////////////////////////// Operator Overloading ////////////////////////////////////////////////////////
+	int& operator[](int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			cout << "Error: Out of list\n";
+			throw 0;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+	//////////////////////////////////////////////////// Добавление элементов в список ////////////////////////////////////////
+	void push_front(int Data)
+	{
+		Element* New = new Element(Data);
+		New->pNext = Head;
+		Head = New;
+		Size++;
+	}
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element* Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element(Data);
+		Size++;
+	}
+
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* New = new Element(Data);
+		New->pNext = Temp->pNext;
+		Temp->pNext = New;
+		Size++;
+		//Temp->pNext = new Element(Data, Temp->pNext);
+	}
+
+
+	////////////////////////////////////////////////// Удаление элементов из списка ////////////////////////////////////////////
+
+	void pop_front()
+	{
+		Element* Buffer = Head;
+		Head = Head->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+
+	void pop_back()
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < Size - 2; i++) Temp = Temp->pNext;
+		/*Element* Buffer = Temp->pNext;
+		Temp->pNext = nullptr;
+		delete Buffer;*/
+		delete Temp->pNext;
+		Temp->pNext = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* Buffer = Temp->pNext;
+		Temp->pNext = Temp->pNext->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	////////////////////////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+	/*	Element* Temp = Head;
+		while (Temp != nullptr)
+		{
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+			Temp = Temp->pNext;
+		}*/
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+	
+	void Clear()
+	{
+		while (Head) pop_front();
+	}
+};
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n; // размер списка
+	int data, index;
+	cout << "Введите размер списка: "; cin >> n;
+	List chain(n); //инициализация пустого списка
+
+	for (int i = 0; i < chain.getSize(); i++)
+	{
+		chain[i] = rand() % 100;
+		cout << chain[i] << tab;
+	}
+	cout << endl;
+}
+///ДЗ
+
+1. CopyConstructor;
+2. MoveConstructor;
+3. CopyAssignment;
+4. MoveAssignment;
+
+///
+/////////////////////////////////////////////////////////////////////////////////////// 05.07.18 ДЗ //////////////////////////////////////////////////////////////////////////////
+
+#include <iostream>
+using namespace std;
+
+#define tab "\t"
+#define delimiter "\n-----------------------------------\n" 
+
+
+
+class Element
+{
+	int Data;
+	Element* pNext;
+public:
+	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
+	{
+		// Добавление элемента в список
+		cout << "EConstructor: " << this << endl;
+	}
+	~Element()
+	{
+		// Удаленеи элемента из списка
+		cout << "EDestructor: " << this << endl;
+	}
+	friend class List;
+};
+class List
+{
+	Element* Head;
+	int Size;
+public:
+
+	int getSize()
+	{
+		return this->Size;
+	}
+
+	//////////////////////////////////////////////////// Constructors ////////////////////////////////////////
+
+	List()   //Инициализация пустого списка
+	{
+		Head = nullptr;
+		Size = 0;
+		cout << "LConstructor: " << this << endl;
+	}
+
+	List(int n) : List()
+	{
+		for (int i = 0; i < n; i++) push_front(0);
+	}
+
+	~List()
+	{
+		Clear();
+		cout << "LConstructor: " << this << endl;
+	}
+
+	List(const List& other) : List()
+	{
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		cout << "LCopyConstructor\t" << this << endl;
+	}
+
+	List(List&& other)
+	{
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveconstructor\t\t" << this << endl;
+	}
+
+	//////////////////////////////////////////////////// Operator Overloading ////////////////////////////////////////////////////////
+
+	List& operator = (const List& other)
+	{
+		Clear();
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		cout << "LCopyAssignment\t" << this << endl;
+		return *this;
+	}
+
+	List& operator=(List&& other)
+	{
+		Clear();
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveAssignment\t\t" << this << endl;
+		return *this;
+	}
+
+	List operator +(const List& other)
+	{
+		List Buffer;
+		Element* Temp = this->Head;
+		for (int i = 0; i < this->Size; i++)
+		{
+			Buffer.push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			Buffer.push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		Buffer.Size = other.Size + this->Size;
+		return Buffer;
+	}
+
+	List operator +=(const List& other)
+	{
+		*this = *this + other;
+		return *this;
+	}
+
+	int& operator[](int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			cout << "Error: Out of list\n";
+			throw 0;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+
+	//////////////////////////////////////////////////// Добавление элементов в список ////////////////////////////////////////
+
+	void push_front(int Data)
+	{
+		Element* New = new Element(Data);
+		New->pNext = Head;
+		Head = New;
+		Size++;
+	}
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element* Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element(Data);
+		Size++;
+	}
+
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* New = new Element(Data);
+		New->pNext = Temp->pNext;
+		Temp->pNext = New;
+		Size++;
+		//Temp->pNext = new Element(Data, Temp->pNext);
+	}
+
+	////////////////////////////////////////////////// Удаление элементов из списка ////////////////////////////////////////////
+
+	void pop_front()
+	{
+		Element* Buffer = Head;
+		Head = Head->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	void pop_back()
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < Size - 2; i++) Temp = Temp->pNext;
+		delete Temp->pNext;
+		Temp->pNext = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* Buffer = Temp->pNext;
+		Temp->pNext = Temp->pNext->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	////////////////////////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Clear()
+	{
+		while (Head) pop_front();
+	}
+};
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n; // размер списка
+	int data, index;
+	cout << "Введите размер списка: "; cin >> n;
+	List chain(n); //инициализация пустого списка
+
+	for (int i = 0; i < chain.getSize(); i++)
+	{
+		chain[i] = rand() % 100;
+	}
+	chain.Print();
+
+	List chain2(4);
+	for (int i = 0; i < chain2.getSize(); i++)
+	{
+		chain2[i] = rand() % 100;
+	}
+
+	chain2.Print();
+
+	List chain3(5);
+
+	chain3.Print();
+
+	chain3 = chain + chain2;
+
+	chain3.Print();
+}
+
+---------------------------------------------------------------- 05.07.18 Конспект --------------------------
+
+#include <iostream>
+using namespace std;
+
+#define tab "\t"
+#define delimiter "\n-----------------------------------\n" 
+
+
+
+class Element
+{
+	int Data;
+	Element* pNext;
+public:
+	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
+	{
+		// Добавление элемента в список
+		cout << "EConstructor:\t " << this << endl;
+	}
+	~Element()
+	{
+		// Удаленеи элемента из списка
+		cout << "EDestructor:\t " << this << endl;
+	}
+	friend class List;
+};
+class List
+{
+	Element* Head;
+	int Size;
+public:
+
+	int getSize()
+	{
+		return this->Size;
+	}
+
+	//////////////////////////////////////////////////// Constructors ////////////////////////////////////////
+
+	List()   //Инициализация пустого списка
+	{
+		Head = nullptr;
+		Size = 0;
+		cout << "LConstructor:\t " << this << endl;
+	}
+
+	List(int n) : List()
+	{
+		for (int i = 0; i < n; i++) push_front(0);
+	}
+
+	~List()
+	{
+		Clear();
+		cout << "LDestructor:\t " << this << endl;
+	}
+
+	List(const List& other) : List()
+	{
+		/*Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+		push_back(Temp->Data);
+		Temp = Temp->pNext;
+		}*/
+		for (Element* Temp = other.Head; Temp != nullptr; Temp = Temp->pNext) push_back(Temp->Data);
+		cout << "LCopyConstructor:" << this << endl;
+	}
+
+	List(List&& other)
+	{
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveConstructor:" << this << endl;
+	}
+
+	//////////////////////////////////////////////////// Operator Overloading ////////////////////////////////////////////////////////
+
+	List& operator = (const List& other)
+	{
+		Clear();
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		cout << "LCopyAssignment:" << this << endl;
+		return *this;
+	}
+
+	List& operator = (List&& other)
+	{
+		Clear();
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveAssignment:" << this << endl;
+		return *this;
+	}
+
+	List operator +(const List& other)
+	{
+		List Buffer = *this;
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			Buffer.push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		Buffer.Size = other.Size + this->Size;
+		cout << "Operator +:\t" << this << endl;
+		return Buffer;
+	}
+
+	List operator +=(const List& other)
+	{
+		*this = *this + other;
+		return *this;
+	}
+
+	int& operator[](int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			cout << "Error: Out of list\n";
+			throw 0;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+
+	//////////////////////////////////////////////////// Добавление элементов в список ////////////////////////////////////////
+
+	void push_front(int Data)
+	{
+		Element* New = new Element(Data);
+		New->pNext = Head;
+		Head = New;
+		Size++;
+	}
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element* Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element(Data);
+		Size++;
+	}
+
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* New = new Element(Data);
+		New->pNext = Temp->pNext;
+		Temp->pNext = New;
+		Size++;
+		//Temp->pNext = new Element(Data, Temp->pNext);
+	}
+
+	////////////////////////////////////////////////// Удаление элементов из списка ////////////////////////////////////////////
+
+	void pop_front()
+	{
+		Element* Buffer = Head;
+		Head = Head->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	void pop_back()
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < Size - 2; i++) Temp = Temp->pNext;
+		delete Temp->pNext;
+		Temp->pNext = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* Buffer = Temp->pNext;
+		Temp->pNext = Temp->pNext->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	////////////////////////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Clear()
+	{
+		while (Head) pop_front();
+	}
+
+	/*TODO:
+	1. remove_value - Удаляет из списка все указанные значения.
+	2. remove_more_than - Удаляет из списка все значения больше указанного.
+	3. remove_less_than - Удаляет из списка все значения меньше указанного.
+	4. unique - Удаляет из списка все дубликаты определенного значения.
+	5. reverse - Изменяет порядок следования элементов.
+	6. sort - Сортировка списка.(принимает left or right).
+	*/
+};
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n; // размер списка
+	int data, index;
+	cout << "Введите размер списка: "; cin >> n;
+	List chain(n); //инициализация пустого списка
+
+	for (int i = 0; i < chain.getSize(); i++) chain[i] = rand() % 100;
+
+	chain.Print();
+
+	List chain2(4);
+
+	for (int i = 0; i < chain2.getSize(); i++) chain2[i] = rand() % 100;
+
+	chain2.Print();
+
+	List chain3 = chain + chain2;
+
+	chain3.Print();
+
+}
+------------------------------------------------------ ДЗ -------------------------------------------------
+/*TODO:
+	1. remove_value - Удаляет из списка все указанные значения.
+	2. remove_more_than - Удаляет из списка все значения больше указанного.
+	3. remove_less_than - Удаляет из списка все значения меньше указанного.
+	4. unique - Удаляет из списка все дубликаты определенного значения.
+	5. reverse - Изменяет порядок следования элементов.
+	6. sort - Сортировка списка.(принимает left or right).
+	*/
+
+------------------------------------------------------------------------------------------- ДЗ ----------------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+#define tab "\t"
+#define delimiter "\n-----------------------------------\n" 
+
+
+
+class Element
+{
+	int Data;
+	Element* pNext;
+public:
+	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
+	{
+		// Добавление элемента в список
+		cout << "EConstructor:\t " << this << endl;
+	}
+	~Element()
+	{
+		// Удаленеи элемента из списка
+		cout << "EDestructor:\t " << this << endl;
+	}
+	friend class List;
+};
+class List
+{
+	Element* Head;
+	int Size;
+public:
+
+	int getSize()
+	{
+		return this->Size;
+	}
+
+	//////////////////////////////////////////////////// Constructors ////////////////////////////////////////
+
+	List()   //Инициализация пустого списка
+	{
+		Head = nullptr;
+		Size = 0;
+		cout << "LConstructor:\t " << this << endl;
+	}
+
+	List(int n) : List()
+	{
+		for (int i = 0; i < n; i++) push_front(0);
+	}
+
+	~List()
+	{
+		Clear();
+		cout << "LDestructor:\t " << this << endl;
+	}
+
+	List(const List& other) : List()
+	{
+		/*Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+		push_back(Temp->Data);
+		Temp = Temp->pNext;
+		}*/
+		for (Element* Temp = other.Head; Temp != nullptr; Temp = Temp->pNext) push_back(Temp->Data);
+		cout << "LCopyConstructor:" << this << endl;
+	}
+
+	List(List&& other)
+	{
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveConstructor:" << this << endl;
+	}
+
+	//////////////////////////////////////////////////// Operator Overloading ////////////////////////////////////////////////////////
+
+	List& operator = (const List& other)
+	{
+		Clear();
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		cout << "LCopyAssignment:" << this << endl;
+		return *this;
+	}
+
+	List& operator = (List&& other)
+	{
+		Clear();
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveAssignment:" << this << endl;
+		return *this;
+	}
+
+	List operator +(const List& other)
+	{
+		List Buffer = *this;
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			Buffer.push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		Buffer.Size = other.Size + this->Size;
+		cout << "Operator +:\t" << this << endl;
+		return Buffer;
+	}
+
+	List operator +=(const List& other)
+	{
+		*this = *this + other;
+		return *this;
+	}
+
+	int& operator[](int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			cout << "Error: Out of list\n";
+			throw 0;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+
+	//////////////////////////////////////////////////// Добавление элементов в список ////////////////////////////////////////
+
+	void push_front(int Data)
+	{
+		Element* New = new Element(Data);
+		New->pNext = Head;
+		Head = New;
+		Size++;
+	}
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element* Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element(Data);
+		Size++;
+	}
+
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* New = new Element(Data);
+		New->pNext = Temp->pNext;
+		Temp->pNext = New;
+		Size++;
+		//Temp->pNext = new Element(Data, Temp->pNext);
+	}
+
+	////////////////////////////////////////////////// Удаление элементов из списка ////////////////////////////////////////////
+
+	void pop_front()
+	{
+		Element* Buffer = Head;
+		Head = Head->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	void pop_back()
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < Size - 2; i++) Temp = Temp->pNext;
+		delete Temp->pNext;
+		Temp->pNext = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* Buffer = Temp->pNext;
+		Temp->pNext = Temp->pNext->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	////////////////////////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Clear()
+	{
+		while (Head) pop_front();
+	}
+
+	void reverse()
+	{
+		List Buffer;
+		Element* Temp = Head;
+		for (int i = 0; i < this->Size; i++)
+		{
+			Buffer.push_front(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		Clear();
+		this->Head = Buffer.Head;
+		this->Size = Buffer.Size;
+		Buffer.Head = nullptr;
+	}
+
+	void remove_value(int value, char str = '\0', int counter = 0)
+	{
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext, counter++)
+		{
+			if ((Temp->Data == value && str == '\0') || (Temp->Data > value && str == 'm') || (Temp->Data < value && str == 'l'))
+			{
+				if (counter == 0)pop_front();
+				else Erase(counter);
+				return remove_value(value, str);
+			}
+		}
+	}
+
+	void remove_more_than(int value)
+	{
+		remove_value(value, 'm');
+	}
+
+	void remove_less_than(int value)
+	{
+		remove_value(value, 'l');
+	}
+
+	void sort(char str = '\0', int counter_Temp = 0, int counter_temp = 0)
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter_Temp++)
+		{
+			counter_temp = 0;
+			for (Element* temp = Head; temp; temp = temp->pNext, counter_temp++)
+				if ((Temp->Data > temp->Data && str == '\0') || (Temp->Data < temp->Data && str != '\0')) Switch(counter_Temp, counter_temp);
+		}
+	}
+
+	void Switch(int dest, int src)
+	{
+		if (dest >= Size || dest < 0 || src >= Size || src < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		int buffer = (*this)[dest];
+		(*this)[dest] = (*this)[src];
+		(*this)[src] = buffer;
+	}
+
+	void unique(int value)
+	{
+		int counter = 0;
+		int index = -1;
+		bool check = false;
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter++)
+		{
+			if (Temp->Data == value && check == false)
+			{
+				index = counter;
+				check = true;
+				continue;
+			}
+			if (Temp->Data == value && check == true && counter != index)
+			{
+				Erase(counter);
+				counter = 0;
+				Temp = Head;
+			}
+		}
+	}
+};
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n; // размер списка
+	int data, index;
+	cout << "Введите размер списка: "; cin >> n;
+	List chain(n);
+
+	for (int i = 0; i < chain.getSize(); i++)
+	{
+		chain[i] = rand() % 3;
+		cout << chain[i] << "\t";
+	}
+	cout << endl;
+
+
+	for (int i = 0; i < chain.getSize(); i++)
+	{
+		cout << chain[i] << "\t";
+	}
+	cout << endl;
+}
+
+///////////////////////////////////////////////////////////// 10.07.18 ///////////////////////////////////////
+#include <iostream>
+#include <time.h>
+using namespace std;
+
+#define tab "\t"
+#define delimiter "\n-----------------------------------\n" 
+
+
+
+class Element
+{
+	int Data;
+	Element* pNext;
+public:
+	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
+	{
+		// Добавление элемента в список
+		cout << "EConstructor:\t " << this << endl;
+	}
+	~Element()
+	{
+		// Удаленеи элемента из списка
+		cout << "EDestructor:\t " << this << endl;
+	}
+
+	friend class List;
+};
+class List
+{
+	Element* Head;
+	int Size;
+public:
+
+	int getSize()
+	{
+		return this->Size;
+	}
+
+	//////////////////////////////////////////////////// Constructors ////////////////////////////////////////
+
+	List()   //Инициализация пустого списка
+	{
+		Head = nullptr;
+		Size = 0;
+		cout << "LConstructor:\t " << this << endl;
+	}
+
+	List(int n) : List()
+	{
+		for (int i = 0; i < n; i++) push_front(0);
+	}
+
+	~List()
+	{
+		Clear();
+		cout << "LDestructor:\t " << this << endl;
+	}
+
+	List(const List& other) : List()
+	{
+		/*Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+		push_back(Temp->Data);
+		Temp = Temp->pNext;
+		}*/
+		for (Element* Temp = other.Head; Temp != nullptr; Temp = Temp->pNext) push_back(Temp->Data);
+		cout << "LCopyConstructor:" << this << endl;
+	}
+
+	List(List&& other)
+	{
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveConstructor:" << this << endl;
+	}
+
+	//////////////////////////////////////////////////// Operator Overloading ////////////////////////////////////////////////////////
+
+	List& operator = (const List& other)
+	{
+		Clear();
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		cout << "LCopyAssignment:" << this << endl;
+		return *this;
+	}
+
+	List& operator = (List&& other)
+	{
+		Clear();
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveAssignment:" << this << endl;
+		return *this;
+	}
+
+	List operator +(const List& other)
+	{
+		List Buffer = *this;
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			Buffer.push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		Buffer.Size = other.Size + this->Size;
+		cout << "Operator +:\t" << this << endl;
+		return Buffer;
+	}
+
+	List operator +=(const List& other)
+	{
+		*this = *this + other;
+		return *this;
+	}
+
+	int& operator[](int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			cout << "Error: Out of list\n";
+			throw 0;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+
+	//////////////////////////////////////////////////// Добавление элементов в список ////////////////////////////////////////
+
+	void push_front(int Data)
+	{
+		Element* New = new Element(Data);
+		New->pNext = Head;
+		Head = New;
+		Size++;
+	}
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element* Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element(Data);
+		Size++;
+	}
+
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* New = new Element(Data);
+		New->pNext = Temp->pNext;
+		Temp->pNext = New;
+		Size++;
+		//Temp->pNext = new Element(Data, Temp->pNext);
+	}
+
+	////////////////////////////////////////////////// Удаление элементов из списка ////////////////////////////////////////////
+
+	void pop_front()
+	{
+		Element* Buffer = Head;
+		Head = Head->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	void pop_back()
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < Size - 2; i++) Temp = Temp->pNext;
+		delete Temp->pNext;
+		Temp->pNext = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* Buffer = Temp->pNext;
+		Temp->pNext = Temp->pNext->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	////////////////////////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Clear()
+	{
+		while (Head) pop_front();
+	}
+
+	////////////////////////////////////// Hardcore ////////////////////////////////////
+
+	void reverse()
+	{
+		for (int i = 0; i < Size / 2; i++) Exchange((*this)[i], (*this)[Size - i - 1]);
+	}
+
+	void remove_value(int value, char str = '\0', int counter = 0)
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter++)
+		{
+			if ((Temp->Data == value && str == '\0') || (Temp->Data > value && str == 'm') || (Temp->Data < value && str == 'l'))
+			{
+					if (counter == 0)pop_front();
+					else Erase(counter);
+					return remove_value(value, str);
+			}
+		}
+	}
+
+	void remove_more_than(int value)
+	{
+		remove_value(value, 'm');
+	}
+
+	void remove_less_than(int value)
+	{
+		remove_value(value, 'l');
+	}
+
+	void sort(char str = '\0', int counter_Temp = 0, int counter_temp = 0)
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter_Temp++)
+		{
+			counter_temp = 0;
+			for (Element* temp = Head; temp; temp = temp->pNext, counter_temp++)
+				if ((Temp->Data > temp->Data && str == '\0') || (Temp->Data < temp->Data && str != '\0')) Switch(counter_Temp, counter_temp);
+		}
+	}
+
+	void Switch(int dest, int src)
+	{
+		if (dest >= Size || dest < 0 || src >= Size || src < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		int buffer = (*this)[dest];
+		(*this)[dest] = (*this)[src];
+		(*this)[src] = buffer;
+	}
+
+	void unique(int value)
+	{
+		int counter = 0;
+		int index = -1;
+		bool check = false;
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter++)
+		{
+			if (Temp->Data == value && check == false)
+			{
+				index = counter;
+				check = true;
+				continue;
+			}
+			if (Temp->Data == value && check == true && counter != index)
+			{
+				Erase(counter);
+				counter = 0;
+				Temp = Head;
+			}
+		}
+	}
+
+	void unique()
+	{
+	   for (Element* Temp = Head; Temp; Temp = Temp->pNext) unique(Temp->Data);
+	}
+
+	void Exchange(int& a, int& b)
+	{
+		int temp = a;
+		a = b;
+		b = temp;
+	}
+
+};
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n; // размер списка
+	int data, index;
+	cout << "Введите размер списка: "; cin >> n;
+	List chain(n);
+
+	for (int i = 0; i < chain.getSize(); i++)
+	{
+		chain[i] = rand() % 10;
+		cout << chain[i] << "\t";
+	}
+	cout << endl;
+
+	chain.unique();
+
+	for (int i = 0; i < chain.getSize(); i++)
+	{
+		cout << chain[i] << "\t";
+	}
+	cout << endl;
+}
+
+//////////////////////////////////////////////// Конспект ////////////////////////////////////////////
+				Функции с произвольным числом параметров
+Обычно список передаваемых параметров в функцию должен четко совпадать со списком принимаемых параметров этой функции, в противном случае возникает ошибка на этапе компиляции, если у функции нету параметров по-умолчанию.
+Существует возможность написать функцию таким образом, чтобы в нее можно было передать сколько угодно параметров, при этом следует задуматься каким образом мы будем считать передаваемые параметры или же находить конец списка аргументов, поскольку ответственность за число аргументов передакладывается с компелятора на программиста, существует два способа передать сколько угодно параметров в функцию:
+
+1) Посчитать число передаваемых аргументов.
+
+2) В конце списка аргументов написать детерминированое(заранее определенное значение).
+
+В первом случае первым принимаемым параметром функции должно быть количество передаваемых далее аргументов, при этом программист вызывающий нашу функцию, должен посчитать все параметры которые он передал
+
+1)
+
+
+template <typename T>
+T Add(int Count, T Value1 ...)
+{
+	T Res = 0;
+	T* it = &Value1;
+	while (Count--) Res += *it++;
+	return Res;
+}
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+
+	cout << Add(3, 3, 5, 8) << endl;
+}
+
+
+2)
+
+template <typename T> T Mul(T Value ...)
+{
+	T Res = 1;
+	T *it = &Value;
+	while (*it != T()) Res *= *it++;
+	return Res;
+}
+
+
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << Mul(3, 5, 8, int()) << endl;
+	// Конструктор List куда можно передать сколько угодно значений и все они попадут в List
+}
+
+================================================================= Код =======================================
+#include <iostream>
+#include <time.h>
+using namespace std;
+
+#define tab "\t"
+#define delimiter "\n-----------------------------------\n" 
+
+
+
+class Element
+{
+	int Data;
+	Element* pNext;
+public:
+	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
+	{
+		// Добавление элемента в список
+		cout << "EConstructor:\t " << this << endl;
+	}
+	~Element()
+	{
+		// Удаленеи элемента из списка
+		cout << "EDestructor:\t " << this << endl;
+	}
+
+	friend class List;
+};
+class List
+{
+	Element* Head;
+	int Size;
+public:
+
+	int getSize()
+	{
+		return this->Size;
+	}
+
+	//////////////////////////////////////////////////// Constructors ////////////////////////////////////////
+
+	List()   //Инициализация пустого списка
+	{
+		Head = nullptr;
+		Size = 0;
+		cout << "LConstructor:\t " << this << endl;
+	}
+
+	List(int n) : List()
+	{
+		for (int i = 0; i < n; i++) push_front(0);
+	}
+
+	~List()
+	{
+		Clear();
+		cout << "LDestructor:\t " << this << endl;
+	}
+
+	List(const List& other) : List()
+	{
+		/*Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+		push_back(Temp->Data);
+		Temp = Temp->pNext;
+		}*/
+		for (Element* Temp = other.Head; Temp != nullptr; Temp = Temp->pNext) push_back(Temp->Data);
+		cout << "LCopyConstructor:" << this << endl;
+	}
+
+	List(List&& other)
+	{
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveConstructor:" << this << endl;
+	}
+
+	//////////////////////////////////////////////////// Operator Overloading ////////////////////////////////////////////////////////
+
+	List& operator = (const List& other)
+	{
+		Clear();
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		cout << "LCopyAssignment:" << this << endl;
+		return *this;
+	}
+
+	List& operator = (List&& other)
+	{
+		Clear();
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveAssignment:" << this << endl;
+		return *this;
+	}
+
+	List operator +(const List& other)
+	{
+		List Buffer = *this;
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			Buffer.push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		Buffer.Size = other.Size + this->Size;
+		cout << "Operator +:\t" << this << endl;
+		return Buffer;
+	}
+
+	List operator +=(const List& other)
+	{
+		*this = *this + other;
+		return *this;
+	}
+
+	int& operator[](int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			cout << "Error: Out of list\n";
+			throw 0;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+
+	//////////////////////////////////////////////////// Добавление элементов в список ////////////////////////////////////////
+
+	void push_front(int Data)
+	{
+		Element* New = new Element(Data);
+		New->pNext = Head;
+		Head = New;
+		Size++;
+	}
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element* Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element(Data);
+		Size++;
+	}
+
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* New = new Element(Data);
+		New->pNext = Temp->pNext;
+		Temp->pNext = New;
+		Size++;
+		//Temp->pNext = new Element(Data, Temp->pNext);
+	}
+
+	////////////////////////////////////////////////// Удаление элементов из списка ////////////////////////////////////////////
+
+	void pop_front()
+	{
+		Element* Buffer = Head;
+		Head = Head->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	void pop_back()
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < Size - 2; i++) Temp = Temp->pNext;
+		delete Temp->pNext;
+		Temp->pNext = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* Buffer = Temp->pNext;
+		Temp->pNext = Temp->pNext->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	////////////////////////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Clear()
+	{
+		while (Head) pop_front();
+	}
+
+	////////////////////////////////////// Hardcore ////////////////////////////////////
+
+	void reverse()
+	{
+		for (int i = 0; i < Size / 2; i++) Exchange((*this)[i], (*this)[Size - i - 1]);
+	}
+
+	void remove_value(int value, char str = '\0', int counter = 0)
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter++)
+		{
+			if ((Temp->Data == value && str == '\0') || (Temp->Data > value && str == 'm') || (Temp->Data < value && str == 'l'))
+			{
+				if (counter == 0)pop_front();
+				else Erase(counter);
+				return remove_value(value, str);
+			}
+		}
+	}
+
+	void remove_more_than(int value)
+	{
+		remove_value(value, 'm');
+	}
+
+	void remove_less_than(int value)
+	{
+		remove_value(value, 'l');
+	}
+
+	void sort(char str = '\0', int counter_Temp = 0, int counter_temp = 0)
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter_Temp++)
+		{
+			counter_temp = 0;
+			for (Element* temp = Head; temp; temp = temp->pNext, counter_temp++)
+				if ((Temp->Data > temp->Data && str == '\0') || (Temp->Data < temp->Data && str != '\0')) Switch(counter_Temp, counter_temp);
+		}
+	}
+
+	void Switch(int dest, int src)
+	{
+		if (dest >= Size || dest < 0 || src >= Size || src < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		int buffer = (*this)[dest];
+		(*this)[dest] = (*this)[src];
+		(*this)[src] = buffer;
+	}
+
+	void unique(int value)
+	{
+		int counter = 0;
+		int index = -1;
+		bool check = false;
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter++)
+		{
+			if (Temp->Data == value && check == false)
+			{
+				index = counter;
+				check = true;
+				continue;
+			}
+			if (Temp->Data == value && check == true && counter != index)
+			{
+				Erase(counter);
+				counter = 0;
+				Temp = Head;
+			}
+		}
+	}
+
+	void unique()
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext) unique(Temp->Data);
+	}
+
+	void Exchange(int& a, int& b)
+	{
+		int temp = a;
+		a = b;
+		b = temp;
+	}
+
+};
+
+
+template <typename T> T Mul(T Value ...)
+{
+	T Res = 1;
+	T *it = &Value;
+	while (*it != T()) Res *= *it++;
+	return Res;
+}
+
+
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << Mul(3, 5, 8, int()) << endl;
+	// Конструктор List куда можно передать сколько угодно значений и все они попадут в List
+} 
+
+____________________________________________________________________________________________________________________________________________________________________________________________________
+						12.07.18
+						ForwardList
+						      ДЗ
+
+#include <iostream>
+#include <time.h>
+using namespace std;
+
+#define tab "\t"
+#define delimiter "\n-----------------------------------\n" 
+
+
+
+class Element
+{
+	int Data;
+	Element* pNext;
+public:
+	Element(int Data, Element* pNext = nullptr) : Data(Data), pNext(pNext)
+	{
+		// Добавление элемента в список
+		cout << "EConstructor:\t " << this << endl;
+	}
+	~Element()
+	{
+		// Удаленеи элемента из списка
+		cout << "EDestructor:\t " << this << endl;
+	}
+
+	friend class List;
+};
+class List
+{
+	Element* Head;
+	int Size;
+public:
+
+	int getSize()
+	{
+		return this->Size;
+	}
+
+	//////////////////////////////////////////////////// Constructors ////////////////////////////////////////
+
+	List()   //Инициализация пустого списка
+	{
+		Head = nullptr;
+		Size = 0;
+		cout << "LConstructor:\t " << this << endl;
+	}
+
+	List(int n) : List()
+	{
+		for (int i = 0; i < n; i++) push_front(0);
+	}
+
+	List(int Data, int Data2 ...) :List()
+	{
+		int *it = &Data;
+		while (*it != int()) push_back(*it++);
+	}
+
+	List(initializer_list<int> il) :List()
+	{
+		for (const int* it = il.begin(); it != il.end(); it++) push_back(*it);
+	}
+	~List()
+	{
+		Clear();
+		cout << "LDestructor:\t " << this << endl;
+	}
+
+	List(const List& other) : List()
+	{
+		/*Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+		push_back(Temp->Data);
+		Temp = Temp->pNext;
+		}*/
+		for (Element* Temp = other.Head; Temp != nullptr; Temp = Temp->pNext) push_back(Temp->Data);
+		cout << "LCopyConstructor:" << this << endl;
+	}
+
+	List(List&& other)
+	{
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveConstructor:" << this << endl;
+	}
+
+
+	//////////////////////////////////////////////////// Operator Overloading ////////////////////////////////////////////////////////
+
+	List& operator = (const List& other)
+	{
+		Clear();
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		cout << "LCopyAssignment:" << this << endl;
+		return *this;
+	}
+
+	List& operator = (List&& other)
+	{
+		Clear();
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveAssignment:" << this << endl;
+		return *this;
+	}
+
+	List operator +(const List& other)
+	{
+		List Buffer = *this;
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			Buffer.push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		Buffer.Size = other.Size + this->Size;
+		cout << "Operator +:\t" << this << endl;
+		return Buffer;
+	}
+
+	List operator +=(const List& other)
+	{
+		*this = *this + other;
+		return *this;
+	}
+
+	int& operator[](int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			cout << "Error: Out of list\n";
+			throw 0;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+
+	//////////////////////////////////////////////////// Добавление элементов в список ////////////////////////////////////////
+
+	void push_front(int Data)
+	{
+		Element* New = new Element(Data);
+		New->pNext = Head;
+		Head = New;
+		Size++;
+	}
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element* Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element(Data);
+		Size++;
+	}
+
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* New = new Element(Data);
+		New->pNext = Temp->pNext;
+		Temp->pNext = New;
+		Size++;
+		//Temp->pNext = new Element(Data, Temp->pNext);
+	}
+
+	////////////////////////////////////////////////// Удаление элементов из списка ////////////////////////////////////////////
+
+	void pop_front()
+	{
+		Element* Buffer = Head;
+		Head = Head->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	void pop_back()
+	{
+		Element* Temp = Head;
+		for (int i = 0; i < Size - 2; i++) Temp = Temp->pNext;
+		delete Temp->pNext;
+		Temp->pNext = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element* Buffer = Temp->pNext;
+		Temp->pNext = Temp->pNext->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	////////////////////////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Clear()
+	{
+		while (Head) pop_front();
+	}
+
+	////////////////////////////////////// Hardcore ////////////////////////////////////
+
+	void reverse()
+	{
+		for (int i = 0; i < Size / 2; i++) Exchange((*this)[i], (*this)[Size - i - 1]);
+	}
+
+	void remove_value(int value, char str = '\0', int counter = 0)
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter++)
+		{
+			if ((Temp->Data == value && str == '\0') || (Temp->Data > value && str == 'm') || (Temp->Data < value && str == 'l'))
+			{
+				if (counter == 0)pop_front();
+				else Erase(counter);
+				return remove_value(value, str);
+			}
+		}
+	}
+
+	void remove_more_than(int value)
+	{
+		remove_value(value, 'm');
+	}
+
+	void remove_less_than(int value)
+	{
+		remove_value(value, 'l');
+	}
+
+	void sort(char str = '\0', int counter_Temp = 0, int counter_temp = 0)
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter_Temp++)
+		{
+			counter_temp = 0;
+			for (Element* temp = Head; temp; temp = temp->pNext, counter_temp++)
+				if ((Temp->Data > temp->Data && str == '\0') || (Temp->Data < temp->Data && str != '\0')) Switch(counter_Temp, counter_temp);
+		}
+	}
+
+	void Switch(int dest, int src)
+	{
+		if (dest >= Size || dest < 0 || src >= Size || src < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		int buffer = (*this)[dest];
+		(*this)[dest] = (*this)[src];
+		(*this)[src] = buffer;
+	}
+
+	void unique(int value)
+	{
+		int counter = 0;
+		int index = -1;
+		bool check = false;
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter++)
+		{
+			if (Temp->Data == value && check == false)
+			{
+				index = counter;
+				check = true;
+				continue;
+			}
+			if (Temp->Data == value && check == true && counter != index)
+			{
+				Erase(counter);
+				counter = 0;
+				Temp = Head;
+			}
+		}
+	}
+
+	void unique()
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext) unique(Temp->Data);
+	}
+
+	void Exchange(int& a, int& b)
+	{
+		int temp = a;
+		a = b;
+		b = temp;
+	}
+
+};
+
+
+template <typename T> T Mul(T Value ...)
+{
+	T Res = 1;
+	T *it = &Value;
+	while (*it != T()) Res *= *it++;
+	return Res;
+}
+
+
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	//cout << Mul(3, 5, 8, int()) << endl;
+	List chain(3, 5, 8,0);
+	chain.Print();
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+					ШАБЛОНЫ КЛАССА
+
+Шаблонным называется класс тип полей которого можно задать при создании объекта, шаблонным может быть как одно так и несколько полей класса, поля могут соответствовать как одному так и нескольким шаблонам. Для того чтобы класс сделать шаблонным, перед ним просто нужно создать шаблон, и все методы реализованые внутри класса автоматически становятся шаблонными, это кроме того что любое поле в классе можно сделать шаблонного типa.
+Когда мы создаем объект шаблоного класса то в обязательном порядке нужно указать каким типом данных должен быть шаблонный тип  
+
+
+#include <iostream>
+#include <time.h>
+using namespace std;
+
+#define tab "\t"
+#define delimiter "\n-----------------------------------\n" 
+
+template<typename T> class List;
+template <typename T>
+class Element
+{
+	T Data;
+	Element<T>* pNext;
+public:
+	Element(T Data, Element<T>* pNext = nullptr) : Data(Data), pNext(pNext)
+	{
+		// Добавление элемента в список
+		cout << "EConstructor:\t " << this << endl;
+	}
+	~Element()
+	{
+		// Удаленеи элемента из списка
+		cout << "EDestructor:\t " << this << endl;
+	}
+	
+
+	friend class List<T>;
+};
+template <typename T>
+class List
+{
+	Element<T>* Head;
+	int Size;
+public:
+
+	int getSize()
+	{
+		return this->Size;
+	}
+
+	//////////////////////////////////////////////////// Constructors ////////////////////////////////////////
+
+	List()   //Инициализация пустого списка
+	{
+		Head = nullptr;
+		Size = 0;
+		cout << "LConstructor:\t " << this << endl;
+	}
+
+	List(int n) : List()
+	{
+		for (int i = 0; i < n; i++) push_front(0);
+	}
+
+
+	List(initializer_list<T> il) :List()
+	{
+		for (const T* it = il.begin(); it != il.end(); it++) push_back(*it);
+	}
+
+	~List()
+	{
+		Clear();
+		cout << "LDestructor:\t " << this << endl;
+	}
+
+	List(const List<T>& other) : List()
+	{
+		for (Element<T>* Temp = other.Head; Temp != nullptr; Temp = Temp->pNext) push_back(Temp->Data);
+		cout << "LCopyConstructor:" << this << endl;
+	}
+
+	List(List<T>&& other)
+	{
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveConstructor:" << this << endl;
+	}
+
+
+	//////////////////////////////////////////////////// Operator Overloading ////////////////////////////////////////////////////////
+
+	List<T>& operator = (const List<T>& other)
+	{
+		Clear();
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		cout << "LCopyAssignment:" << this << endl;
+		return *this;
+	}
+
+	List<T>& operator = (List<T>&& other)
+	{
+		Clear();
+		this->Head = other.Head;
+		this->Size = other.Size;
+		other.Head = nullptr;
+		cout << "LMoveAssignment:" << this << endl;
+		return *this;
+	}
+
+	List<T> operator +(const List<T>& other)
+	{
+		List Buffer = *this;
+		Element* Temp = other.Head;
+		for (int i = 0; i < other.Size; i++)
+		{
+			Buffer.push_back(Temp->Data);
+			Temp = Temp->pNext;
+		}
+		Buffer.Size = other.Size + this->Size;
+		cout << "Operator +:\t" << this << endl;
+		return Buffer;
+	}
+
+	int& operator[](int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			cout << "Error: Out of list\n";
+			throw 0;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+
+	//////////////////////////////////////////////////// Добавление элементов в список ////////////////////////////////////////
+
+	void push_front(T Data)
+	{
+		Element<T>* New = new Element<T>(Data);
+		New->pNext = Head;
+		Head = New;
+		Size++;
+	}
+
+	void push_back(T Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Element<T>* Temp = Head;
+		while (Temp->pNext != nullptr) Temp = Temp->pNext;
+		Temp->pNext = new Element<T>(Data);
+		Size++;
+	}
+
+	void Insert(T Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element<T>* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element<T>* New = new Element<T>(Data);
+		New->pNext = Temp->pNext;
+		Temp->pNext = New;
+		Size++;
+	}
+
+	////////////////////////////////////////////////// Удаление элементов из списка ////////////////////////////////////////////
+
+	void pop_front()
+	{
+		Element<T>* Buffer = Head;
+		Head = Head->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	void pop_back()
+	{
+		Element<T>* Temp = Head;
+		for (int i = 0; i < Size - 2; i++) Temp = Temp->pNext;
+		delete Temp->pNext;
+		Temp->pNext = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element<T>* Temp = Head;
+		for (int i = 0; i < Index - 1; i++) Temp = Temp->pNext;
+		Element<T>* Buffer = Temp->pNext;
+		Temp->pNext = Temp->pNext->pNext;
+		delete Buffer;
+		Size--;
+	}
+
+	////////////////////////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element<T>* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Clear()
+	{
+		while (Head) pop_front();
+	}
+
+	////////////////////////////////////// Hardcore ////////////////////////////////////
+
+	void reverse()
+	{
+		for (int i = 0; i < Size / 2; i++) Exchange((*this)[i], (*this)[Size - i - 1]);
+	}
+
+	void remove_value(T value, char str = '\0', int counter = 0)
+	{
+		for (Element<T>* Temp = Head; Temp; Temp = Temp->pNext, counter++)
+		{
+			if ((Temp->Data == value && str == '\0') || (Temp->Data > value && str == 'm') || (Temp->Data < value && str == 'l'))
+			{
+				if (counter == 0)pop_front();
+				else Erase(counter);
+				return remove_value(value, str);
+			}
+		}
+	}
+
+	void remove_more_than(T value)
+	{
+		remove_value(value, 'm');
+	}
+
+	void remove_less_than(T value)
+	{
+		remove_value(value, 'l');
+	}
+
+	void sort(char str = '\0', int counter_Temp = 0, int counter_temp = 0)
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter_Temp++)
+		{
+			counter_temp = 0;
+			for (Element* temp = Head; temp; temp = temp->pNext, counter_temp++)
+				if ((Temp->Data > temp->Data && str == '\0') || (Temp->Data < temp->Data && str != '\0')) Switch(counter_Temp, counter_temp);
+		}
+	}
+
+	void Switch(T dest, T src)
+	{
+		if (dest >= Size || dest < 0 || src >= Size || src < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		T buffer = (*this)[dest];
+		(*this)[dest] = (*this)[src];
+		(*this)[src] = buffer;
+	}
+
+	void unique(T value)
+	{
+		int counter = 0;
+		int index = -1;
+		bool check = false;
+		for (Element<T>* Temp = Head; Temp; Temp = Temp->pNext, counter++)
+		{
+			if (Temp->Data == value && check == false)
+			{
+				index = counter;
+				check = true;
+				continue;
+			}
+			if (Temp->Data == value && check == true && counter != index)
+			{
+				Erase(counter);
+				counter = 0;
+				Temp = Head;
+			}
+		}
+	}
+
+	void unique()
+	{
+		for (Element<T>* Temp = Head; Temp; Temp = Temp->pNext) unique(Temp->Data);
+	}
+
+	void Exchange(T& a, T& b)
+	{
+		T temp = a;
+		a = b;
+		b = temp;
+	}
+
+};
+
+
+template <typename T> T Mul(T Value ...)
+{
+	T Res = 1;
+	T *it = &Value;
+	while (*it != T()) Res *= *it++;
+	return Res;
+}
+
+
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	List<double> chain{3, 3.3,5.4, 8.5 };
+	//chain.unique();
+	chain.Print();
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#include <iostream>
+using namespace std;
+
+//Class declaration(Объявление класса)
+class Point
+{
+	double x;
+	double y;
+public:
+	// Get/Set 
+	double GetX() const;
+	double GetY() const;
+	void SetX(double x);
+	void SetY(double y);
+	//Constructors:
+	Point();
+	Point(double x, double y);
+	Point(double x);
+	Point(const Point& other);
+	~Point();
+	Point& operator = (const Point& other);
+	Point operator + (const Point& other);
+	Point operator - (const Point& other);
+	Point& operator++();
+	Point& operator++(int);
+	////////////////////////////////////////////////////////////////////
+	void Print();
+	friend double Distance_function(const Point& A, const  Point& B);
+};
+//Class definition (Определение класса):
+//Get/Set 
+double Point::GetX() const
+{
+	return x;
+}
+double Point::GetY() const
+{
+	return y;
+}
+void Point::SetX(double x)
+{
+	this->x = x;
+}
+void Point::SetY(double y)
+{
+	this->y = y;
+}
+//Constructors:
+Point::Point() :x(0), y(0)
+{
+	cout << "Default";
+}
+
+Point::Point(double x)
+{
+	this->x = x;
+	this->y = 0;
+}
+Point::Point(double x, double y)
+{
+	this->x = x;
+	this->y = y;
+}
+Point::Point(const Point& other)
+{
+	this->x = other.x;
+	this->y = other.y;
+	cout << "Copy Constructor:\t" << this << endl;
+}
+Point::~Point()
+{
+	cout << "Destructor\t" << this << endl;
+}
+
+Point& Point::operator = (const Point& other)
+{
+	this->x = other.x;
+	this->y = other.y;
+	cout << "CopyAssignment\t" << this << endl;
+	return *this;
+}
+Point Point::operator + (const Point& other)
+{
+	Point temp;
+	temp.x = this->x + other.x;
+	temp.y = this->y + other.y;
+	return temp;
+}
+Point Point::operator - (const Point& other)
+{
+	Point temp;
+	temp.x = this->x - other.x;
+	temp.y = this->y - other.y;
+	return temp;
+}
+Point& Point::operator++() //Prefix
+{
+	this->x++;
+	this->y++;
+	cout << "PrefixIncrement" << "\t" << this << endl;
+	return *this;
+}
+Point& Point::operator++(int) //Postfix
+{
+	Point temp = *this;
+	this->x++;
+	this->y++;
+	cout << "PostfixIncrement" << "\t" << this << endl;
+	return temp;
+}
+
+//methods:
+void Point::Print()
+{
+	cout << this->x << "\t" << this->y << endl;
+}
+
+
+double Distance_function(const Point& A, const Point& B)
+{
+	return  sqrt(pow((B.x - A.x), 2) + pow(A.y - B.y, 2));
+}
+
+void main()
+{
+	Point A(2);
+
+}
+
+//class Fraction / String
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+						Двухсвязные списки
+Двосвязный список это контейнер, каждый элемент которого содержит как адрес следующего так и предыдущего элемента,элементы расположены в произвольных областях памяти, у двусвязного списка кроме головы(Head) есть ешё и хвост(Tail), когда двухсвязный список пуст, его голова и хвост указывают на 0, когда в двухсвязном списке появляется первый элемент он одновременно является и головой и хвостом списка, кроме того pNext и pPref первого элемента указывают на 0
+
+
+#include <iostream>
+using namespace std;
+
+
+#define delimiter "\n---------------------------\n"
+#define tab "\t"
+
+class Element
+{
+	int Data;
+	Element* pNext;
+	Element* pPrev;
+public:
+	Element(int Data, Element* pNext = nullptr, Element* pPrev = nullptr) : Data(Data), pNext(pNext), pPrev(pPrev)
+	{
+		cout << "EConstructor:\t " << this << endl;
+	}
+	~Element()
+	{
+		cout << "EDestructor:\t " << this << endl;
+	}
+
+	friend class List;
+};
+
+class List
+{
+	Element* Head;
+	Element* Tail;
+	int Size;
+public:
+	/////////////////////////////////// GetSet methods ////////////////////////////////
+	int GetSize()
+	{
+		return Size;
+	}
+	///////////////////////////////////	Constructors ///////////////////////////////////
+	List()
+	{
+		Head = nullptr;
+		Tail = nullptr;
+		Size = 0;
+		cout << "LConstructor:\t " << this << endl;
+	}
+
+	~List()
+	{
+		Clear();
+	}
+	////////////////////////////////// Operator overloading //////////////////////////////////////
+
+
+
+	//////////////////////////////// Добавление элементов ///////////////////////////////////////
+
+	void push_front(int Data)
+	{
+		Size++;
+		if (Head == nullptr)
+		{
+			Head = Tail = new Element(Data);
+			return;
+		}
+		Head = Head->pPrev = new Element(Data, Head);
+		/*Element* New = new Element(Data);
+		New->pNext = Head;
+		Head->pPrev = New;
+		Head = New;*/
+	}
+
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Tail = Tail->pNext = new Element(Data, 0, Tail);
+		Size++;
+	}
+
+
+
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* New = new Element(Data);
+		Element* Temp;
+		if (Index < Size / 2)
+		{
+			Temp = Head;
+			for (int i = 0; i < Index; i++)Temp = Temp->pNext;
+		}
+		else
+		{
+			Temp = Tail;
+			for (int i = Size - 1; i > Index; i--)Temp = Temp->pPrev;
+		}
+		New->pNext = Temp;
+		New->pPrev = Temp->pPrev;
+		New->pPrev->pNext = New;
+		Temp->pPrev = New;
+		Size++;
+
+	}
+	/////////////////////////////// Удаление элементов ///////////////////////////////////////////
+
+	void pop_front()
+	{
+		Head = Head->pNext;
+		delete Head->pPrev;
+		Head->pPrev = nullptr;
+		Size--;
+	}
+
+	void pop_back()
+	{
+		Tail = Tail->pPrev;
+		delete Tail->pNext;
+		Tail->pNext = nullptr;
+		Size--;
+	}
+
+
+	///////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "\nАдрес конца списка: " << this->Tail << "\n\n";
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Print_reverse()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element* Temp = Tail; Temp != nullptr; Temp = Temp->pPrev)
+		{
+			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "\nАдрес конца списка: " << this->Tail << "\n\n";
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Clear()
+	{
+		
+	}
+
+};
+
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	List chain;
+	for (int i = 0; i < 10; i++)
+	{
+		chain.push_back(rand() % 100);
+	}
+	chain.Print();
+	chain.Insert(123, 10);
+	chain.Print();
+	//chain.Print_reverse();
+
+}
+________________________________________________________________________________________________________
+
+#include <iostream>
+using namespace std;
+
+
+#define delimiter "\n-----------------------------------------------------------\n"
+#define tab "\t"
+
+class Element
+{
+	int Data;
+	Element* pNext;
+	Element* pPrev;
+public:
+	Element(int Data, Element* pNext = nullptr, Element* pPrev = nullptr) : Data(Data), pNext(pNext), pPrev(pPrev)
+	{
+		cout << "EConstructor:\t " << this << endl;
+	}
+	~Element()
+	{
+		cout << "EDestructor:\t " << this << endl;
+	}
+
+	friend class List;
+};
+
+class List
+{
+	Element* Head;
+	Element* Tail;
+	int Size;
+public:
+	/////////////////////////////////// GetSet methods ////////////////////////////////
+	
+	int GetSize()
+	{
+		return Size;
+	}
+
+	///////////////////////////////////	Constructors ///////////////////////////////////
+	
+	List()
+	{
+		Head = nullptr;
+		Tail = nullptr;
+		Size = 0;
+		cout << "LConstructor:\t " << this << endl;
+	}
+
+	List(int n):List()
+	{
+		for (int i = 0; i < n; i++) push_front(0);
+	}
+
+	List(initializer_list<int> il) :List()
+	{
+		for (const int* it = il.begin(); it != il.end(); it++) push_back(*it);
+	}
+
+	~List()
+	{
+		Clear();
+		cout << "LDestructor:\t " << this << endl;
+	}
+
+	////////////////////////////////// Operator overloading //////////////////////////////////////
+
+	int& operator[](int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			cout << "Error: Out of list\n";
+			throw 0;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+
+	//////////////////////////////// Добавление элементов ///////////////////////////////////////
+
+	void add_first(int Data)
+	{
+		if (Head == nullptr)
+		{
+			Head = Tail = new Element(Data);
+		}
+	}
+
+	void push_front(int Data)
+	{
+		Size++;
+		if (Head == nullptr)
+		{
+			add_first(Data);
+			return;
+		}
+		Head = Head->pPrev = new Element(Data, Head);
+		/*Element* New = new Element(Data);
+		New->pNext = Head;
+		Head->pPrev = New;
+		Head = New;*/
+	}
+
+	void Insert(int Data, int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp;
+		if (Index < Size / 2)
+		{
+			Temp = Head;
+			for (int i = 0; i < Index; i++)Temp = Temp->pNext;
+		}
+		else
+		{
+			Temp = Tail;
+			for (int i = Size - 1; i > Index; i--)Temp = Temp->pPrev;
+		}
+		/*New->pNext = Temp;
+		New->pPrev = Temp->pPrev;
+		New->pPrev->pNext = New;
+		Temp->pPrev = New;*/
+		Temp->pPrev = Temp->pPrev->pNext = new Element(Data, Temp, Temp->pPrev);
+		Size++;
+
+	}
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			push_front(Data);
+			return;
+		}
+		Tail = Tail->pNext = new Element(Data, 0, Tail);
+		Size++;
+	}
+
+	/////////////////////////////// Удаление элементов ///////////////////////////////////////////
+
+	void del_last()
+	{
+		if (Head == Tail)
+		{
+			delete Head;
+			Head = Tail = nullptr;
+		}
+
+	}
+
+	void pop_front()
+	{
+		if (Head == nullptr)return;
+		if (Head == Tail)
+		{
+			del_last();
+			return;
+		}
+		Head = Head->pNext;
+		delete Head->pPrev;
+		Head->pPrev = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (Index >= Size || Index < 0)
+		{
+			cout << "Error: Введите коректный индекс!" << endl;
+			return;
+		}
+		Element* Temp;
+		if (Index < Size / 2)
+		{
+			Temp = Head;
+			for (int i = 0; i < Index; i++)Temp = Temp->pNext;
+		}
+		else
+		{
+			Temp = Tail;
+			for (int i = Size - 1; i > Index; i--)Temp = Temp->pPrev;
+		}
+		Temp->pPrev->pNext = Temp->pNext;
+		Temp->pNext->pPrev = Temp->pPrev;
+		delete Temp;
+		Size--;
+	}
+
+	void pop_back()
+	{
+		if (Head == nullptr)return;
+		if (Head == Tail)
+		{
+			del_last();
+			return;
+		}
+		Tail = Tail->pPrev;
+		delete Tail->pNext;
+		Tail->pNext = nullptr;
+		Size--;
+	}
+
+	///////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "\nАдрес конца списка: " << this->Tail << "\n\n";
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Print_reverse()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << this->Head << "\n\n";
+		for (Element* Temp = Tail; Temp != nullptr; Temp = Temp->pPrev)
+		{
+			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "\nАдрес конца списка: " << this->Tail << "\n\n";
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Clear()
+	{
+		while(Head != Tail)pop_front();
+		del_last();
+	}
+
+	void Exchange(int& a, int& b)
+	{
+		int buffer = a;
+		a = b;
+		b = buffer;
+	}
+
+	void reverse()
+	{
+		for (int i = 0; i < Size / 2; i++) Exchange((*this)[i], (*this)[Size - 1 - i]);
+	}
+};
+
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	List chain(10);
+	for (int i = 0; i < 10; i++) chain[i] = (rand() % 100);
+	chain.Print();
+	cout << chain[8] << endl;
+	chain.Print_reverse();
+	chain.reverse();
+	chain.Print();
+}
+
+========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+					Двусвязный список
+					    13.08.18
+
+#include <iostream>
+using namespace std;
+
+#define tab '\t'
+#define delimiter "\n\n-----------------------------------------------\n\n"
+
+class Element
+{
+	int Data;
+	Element* pNext;
+	Element* pPrev;
+public:
+	Element(int Data, Element* pNext = nullptr, Element* pPrev = nullptr) :Data(Data), pNext(pNext), pPrev(pPrev)
+	{
+		cout << "EConstructor:\t " << this << endl;
+	}
+	~Element()
+	{
+		cout << "EDestructor:\t " << this << endl;
+	}
+
+	friend class List;
+
+};
+
+class List
+{
+	Element* Head;
+	Element* Tail;
+	int Size;
+
+public:
+
+	/////////////////////////////////// GetSet methods ////////////////////////////////
+
+	int GetSize()
+	{
+		return Size;
+	}
+
+	///////////////////////////////////	Constructors ///////////////////////////////////
+
+	List()
+	{
+		Head = Tail = nullptr;
+		Size = 0;
+		cout << "LConstructor:\t " << this << endl;
+	}
+
+	List(int n) : List()
+	{
+		for (int i = 0; i < n; i++) push_back(rand() % 100);
+	}
+
+	List(initializer_list<int> il):List()
+	{
+		for (const int* it = il.begin(); it < il.end(); it++) push_back(*it);
+	}
+
+	~List()
+	{
+		Clear();
+		cout << "LDestructor:\t " << this << endl;
+	}
+
+	////////////////////////////////// Operator overloading //////////////////////////////////////
+
+	int& operator[](int Index)
+	{
+		if (Index < 0 || Index >= Size)
+		{
+			cout << "Error: Out of list\n";
+			throw 0;
+		}
+		Element* Temp = Head;
+		for (int i = 0; i < Index; i++) Temp = Temp->pNext;
+		return Temp->Data;
+	}
+
+	//////////////////////////////// Добавление элементов ///////////////////////////////////////
+
+	void push_front(int Data)
+	{
+		if (Head == nullptr)
+		{
+			Tail = Head = new Element(Data);
+			Size++;
+			return;
+		}
+		Head = Head->pPrev = new Element(Data, Head);
+		Size++;
+	}
+
+	void Insert(int Data, int Index)
+	{
+		if (valid_index(Index) == 1) return;
+		Element* Temp;
+		if (Index < Size / 2)
+		{
+			Temp = Head;
+			for (int i = 0; i < Index; i++)Temp = Temp->pNext;
+		}
+		else
+		{
+			Temp = Tail;
+			for (int i = Size - 1; i > Index; i--)Temp = Temp->pPrev;
+		}
+		Temp->pPrev = Temp->pPrev->pNext = new Element(Data, Temp, Temp->pPrev);
+		Size++;
+	}
+
+	void push_back(int Data)
+	{
+		if (Head == nullptr)
+		{
+			Tail = Head = new Element(Data);
+			Size++;
+			return;
+		}
+		Tail = Tail->pNext = new Element(Data, 0, Tail);
+		Size++;
+	}
+
+	/////////////////////////////// Удаление элементов ///////////////////////////////////////////
+
+	void del_last()
+	{
+		if (Head == Tail)
+		{
+			delete Head;
+			Size--;
+			Head = Tail = nullptr;
+		}
+	}
+
+	void pop_front()
+	{
+		if (Head == nullptr) return;
+		if (Head == Tail)
+		{
+			del_last();
+			return;
+		}
+		Head = Head->pNext;
+		delete Head->pPrev;
+		Head->pPrev = nullptr;
+		Size--;
+	}
+
+	void Erase(int Index)
+	{
+		if (valid_index(Index) == 1) return;
+		Element* Temp;
+		if (Index < Size / 2)
+		{
+			Temp = Head;
+			for (int i = 0; i < Index; i++)Temp = Temp->pNext;
+		}
+		else
+		{
+			Temp = Tail;
+			for (int i = Size - 1; i > Index; i--)Temp = Temp->pPrev;
+		}
+		Temp->pPrev->pNext = Temp->pNext;
+		Temp->pNext->pPrev = Temp->pPrev;
+		delete Temp;
+		Size--;
+	}
+
+	void Erase(Element* &Temp)
+	{
+		Temp->pPrev->pNext = Temp->pNext;
+		Temp->pNext->pPrev = Temp->pPrev;
+		delete Temp;
+		Size--;
+		Temp = Temp->pPrev;
+	}
+
+	void pop_back()
+	{
+		if (Tail == nullptr) return;
+		if (Head == Tail)
+		{
+			del_last();
+			return;
+		}
+		Tail = Tail->pPrev;
+		delete Tail->pNext;
+		Tail->pNext = nullptr;
+		Size--;
+
+	}
+
+	void remove_value(int value, char str = '\0', int counter = 0)
+	{
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext, counter++)
+		{
+			if ((Temp->Data == value && str == '\0') || (Temp->Data > value && str == 'm') || (Temp->Data < value && str == 'l'))
+			{
+				if (counter == 0)pop_front();
+				else if (counter == Size - 1)pop_back();
+				else Erase(Temp);
+				return remove_value(value, str);
+			}
+		}
+	}
+
+	///////////////////////////////// Auxiliary methods //////////////////////////////////////////////////////
+
+	void Print()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << Head << endl;
+		for (Element* Temp = Head; Temp != nullptr; Temp = Temp->pNext)
+		{
+			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Адрес конца списка: " << Tail << endl;
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	void Print_reverse()
+	{
+		cout << delimiter << endl;
+		cout << "Адрес начала списка: " << Head << endl;
+		for (Element* Temp = Tail; Temp != nullptr; Temp = Temp->pPrev)
+		{
+			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+		}
+		cout << "Адрес конца списка: " << Tail << endl;
+		cout << "Размер списка: " << Size << endl;
+		cout << delimiter << endl;
+	}
+
+	int valid_index(int index)
+	{
+		if (index >= Size || index < 0) return 1;
+		else return 0;
+	}
+
+	void Clear()
+	{
+		while (Head!=Tail) pop_front();
+		del_last();
+	}
+
+	void Exchange(int& a, int& b)
+	{
+		int buffer = a;
+		a = b;
+		b = buffer;
+	}
+
+	void reverse()
+	{
+		for (int i = 0; i < Size / 2; i++) Exchange((*this)[i], (*this)[Size - 1 - i]);
+	}
+
+	
+};
+
+
+
+
+void main()
+{
+	setlocale(LC_ALL, "Russian");
+	List list{3, 5, 8, 13, 21};
+	list.Print();
+	list.remove_value(8);
+	list.Print();
+}
+
